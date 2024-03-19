@@ -37,12 +37,12 @@ public class MainView extends JPanel {
         Order = new JButton("Order");
         Order.setBounds(300, 430, 200, 68);
         Order.setBackground(Color.lightGray);
-        Order.addActionListener(new OrderButtonListener());
+        // Order.addActionListener(new OrderButtonListener());
         
         Stock = new JButton("Stock");
         Stock.setBounds(700, 430, 200, 68);
         Stock.setBackground(Color.lightGray);
-        Stock.addActionListener(new StockButtonListener());
+        // Stock.addActionListener(new StockButtonListener());
         
         // report = new JButton (" Monthly Sales Report");
         // report.setBounds(1000, 430, 200, 68);
@@ -79,49 +79,49 @@ public class MainView extends JPanel {
 
  
 
-    private class StockButtonListener implements ActionListener {
-        public void actionPerformed(ActionEvent x) {
-            if (x.getSource() == Stock)
-            {
-                try{
-                    APP.StockManagement.Stock stock = new APP.StockManagement.Stock();
+    // private class StockButtonListener implements ActionListener {
+    //     public void actionPerformed(ActionEvent x) {
+    //         if (x.getSource() == Stock)
+    //         {
+    //             try{
+    //                 APP.StockManagement.Stock stock = new APP.StockManagement.Stock();
             
-                    stock.createAndShowGUI();
-                    SystemDisplay newContentPane = new SystemDisplay();
-                    newContentPane.setOpaque(false);
+    //                 stock.createAndShowGUI();
+    //                 SystemDisplay newContentPane = new SystemDisplay();
+    //                 newContentPane.setOpaque(false);
 
-                }
-                catch (Exception y)
-                {
+    //             }
+    //             catch (Exception y)
+    //             {
 
-                }
-            } 
+    //             }
+    //         } 
             
-        }
+    //     }
 
-    }
+    // }
 
-    private class OrderButtonListener implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            if (e.getSource() == Order) {
+    // private class OrderButtonListener implements ActionListener {
+    //     public void actionPerformed(ActionEvent e) {
+    //         if (e.getSource() == Order) {
 
-                try {
-                    APP.OrderManagement.Order Order = new APP.OrderManagement.Order();
-                    SystemDisplay newContentPane = new SystemDisplay();
-                    MainView mainView = new MainView();
-                    newContentPane.setOpaque(true);
-                    mainView.setOpaque(false);
+    //             try {
+    //                 APP.OrderManagement.Order Order = new APP.OrderManagement.Order();
+    //                 SystemDisplay newContentPane = new SystemDisplay();
+    //                 MainView mainView = new MainView();
+    //                 newContentPane.setOpaque(true);
+    //                 mainView.setOpaque(false);
                     
 
-                } catch (Exception d) {
+    //             } catch (Exception d) {
 
-                }
+    //             }
 
-            }
+    //         }
 
-        }
+    //     }
 
-    }
+    // }
 
     public void createAndShowGUI() {
         JFrame frame = new JFrame("Trudy's Bowtique");

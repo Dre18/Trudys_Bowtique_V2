@@ -7,62 +7,37 @@ import java.awt.event.ActionListener;
 import java.util.function.Consumer;
 
 public class UserAuth implements ActionListener {
+
     private LoginGUI loginGUI;
-   
-
-   
-
+  
     public UserAuth() {
-        loginGUI = new LoginGUI(this); // Pass itself to LoginGUI constructor
-        loginButton.addActionListener(this);
-        doneButton.addActionListener(this);
-        showPasswordCheckbox.addActionListener(this);
-        
+      loginGUI = new LoginGUI(this); // Pass itself to LoginGUI constructor
     }
-
+  
+    @Override
     public void actionPerformed(ActionEvent e) {
-
-        if (e.getSource() == loginButton) {
-            String userText;
-            String pwdText;
-            userText = userTF.getText();
-            pwdText = String.valueOf(passwordField.getPassword());
-           String[] user = { "Admin Admin" };
-            int a = 0;
-            for (int i = 0; i < user.length; i++) {
-               String[] s = user[i].split(" ");
-            //    if (userText.equals(s[0]) && pwdText.equals(s[1])) {
-                userText.equals("Admin");
-                pwdText.equals("Admin");
-                MainView mainView = new MainView();
-
-                
-                mainView.createAndShowGUI();
-                    a = 1;
-                    setVisible(false);
-            //    }
-           }
-
-            if (a == 0) {
-                JOptionPane.showMessageDialog(this, "Invalid Username or Password");
-            }
+      if (e.getSource() == loginGUI.getLoginButton()) {
+        // Get username and password from LoginGUI using its methods
+        String username = loginGUI.getUsername();
+        String password = loginGUI.getPassword();
+        // Perform authentication logic with username and password
+        // ... (replace with your actual authentication logic)
+        if (username == "Admin" && password == "Admin") 
+        {
+          // Launch MainView or perform other actions on successful login
+          // You can call methods from MainView here (if appropriate)
+        //   LoginGUI loginGUI = new MainView();
+        //   loginGUI.createAndShowGUI();
+          loginGUI.setVisible(false);
+            
+        } else {
+          loginGUI.showError("Invalid Username or Password"); // Inform LoginGUI
         }
-
-        if (e.getSource() == DoneButton) {
-            userTF.setText("");
-            passwordField.setText("");
-        }
-
-        if (e.getSource() == showPassword) {
-            if (showPassword.isSelected()) {
-                passwordField.setEchoChar((char) 0);
-                // userTF.disable();
-                // passwordField.disable();
-            } else {
-                passwordField.setEchoChar('*');
-            }
-        }
-
-        
+      } else if (e.getSource() == loginGUI.getDoneButton()) {
+        loginGUI.clearFields(); // Delegate clearing fields to LoginGUI
+      } else if (e.getSource() == loginGUI.getshowPassword()) {
+        // No action needed here, handled by LoginGUI
+      }
     }
-}
+  }
+  
