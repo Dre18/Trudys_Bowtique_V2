@@ -13,6 +13,10 @@ public class UserAuth implements ActionListener {
     public UserAuth() {
       loginGUI = new LoginGUI(this); // Pass itself to LoginGUI constructor
     }
+
+    public void showLoginWindow() {
+        loginGUI.setVisible(true); // Make the existing LoginGUI visible
+      }
   
     @Override
     public void actionPerformed(ActionEvent e) {

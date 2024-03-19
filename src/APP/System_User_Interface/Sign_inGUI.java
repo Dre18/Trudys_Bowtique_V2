@@ -2,9 +2,11 @@ package APP.System_User_Interface;
 
 import javax.swing.*;
 
+import APP.AuthenticationandAuthorization.LoginGUI;
 import APP.AuthenticationandAuthorization.UserAuth;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Sign_inGUI extends JPanel {
@@ -12,11 +14,20 @@ public class Sign_inGUI extends JPanel {
   private JButton closeButton;
   private JButton loginButton;
   private final UserAuth userAuth; // Reference to UserAuth object
+  private Color panelColor;
 
   public Sign_inGUI(UserAuth userAuth) {
     this.userAuth = userAuth;
 
     // Initialize GUI components
+
+    // JPanel displayPanel = new JPanel();
+      
+    //     displayPanel.setPreferredSize(displayPanel.getToolkit().getScreenSize());
+    //     displayPanel.setLayout(null);
+    //     panelColor = new Color(123, 154, 239);
+    //     displayPanel.setBackground(panelColor);
+
     closeButton = new JButton("Close");
     loginButton = new JButton("Login");
 
@@ -34,6 +45,7 @@ public class Sign_inGUI extends JPanel {
     // Add components to the panel
     add(closeButton);
     add(loginButton);
+    // add(displayPanel);
   }
 
   private class CloseButtonListener implements ActionListener {
@@ -46,7 +58,11 @@ public class Sign_inGUI extends JPanel {
   private class LoginButtonListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
-      userAuth.showLoginWindow(); // Delegate login handling to UserAuth
+      
+      // UserAuth userAuth = new UserAuth();
+      LoginGUI loginGUI = new LoginGUI(userAuth);
+      userAuth.showLoginWindow();
+      loginGUI.createAndShowGUI();
     }
   }
 }

@@ -7,15 +7,17 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import APP.System_User_Interface.MainView;
+
 public class LoginGUI extends JPanel{
 
-  ;
   private UserAuth userAuth; // Reference to UserAuth object
   private JLabel usernameLabel;
   private JLabel passwordLabel;
@@ -39,7 +41,7 @@ public class LoginGUI extends JPanel{
 
     // Layout components (replace with your preferred layout manager)
     JPanel displaypanel = new JPanel();
-    displaypanel.setPreferredSize(new Dimension(250, 150));
+    // displaypanel.setPreferredSize(new Dimension(250, 150));
     setLayout(null); // Use a more appropriate layout instead of null
     usernameLabel.setBounds(50, 150, 100, 30);
     passwordLabel.setBounds(50, 220, 100, 30);
@@ -48,11 +50,13 @@ public class LoginGUI extends JPanel{
     add(usernameLabel);
     add(passwordLabel);
     // container.add(userTF);
+    add(usernameField);
     add(passwordField);
     add(showPassword);
     add(loginButton);
     add(DoneButton);
     // ... (add other components with their bounds)
+    usernameField.setBounds(150, 150, 150, 30);
     passwordField.setBounds(150, 220, 150, 30);
     showPassword.setBounds(150, 250, 150, 30);
     loginButton.setBounds(50, 300, 100, 30);
@@ -101,5 +105,16 @@ public class LoginGUI extends JPanel{
     passwordField.setText("");
   }
 
+
+  public void createAndShowGUI() {
+        JFrame frame = new JFrame("Login");
+        LoginGUI loginGUI = new LoginGUI(userAuth);
+        frame.setPreferredSize(new Dimension(600, 700));
+        loginGUI.setOpaque(true);
+        frame.setContentPane(loginGUI);
+        frame.pack();
+        frame.setVisible(true);
+
+    }
  
 }
