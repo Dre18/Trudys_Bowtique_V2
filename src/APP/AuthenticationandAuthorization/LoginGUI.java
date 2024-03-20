@@ -3,6 +3,7 @@ package APP.AuthenticationandAuthorization;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
@@ -15,6 +16,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import APP.System_User_Interface.MainView;
+import APP.System_User_Interface.Secure_viewGUI;
 
 public class LoginGUI extends JPanel{
 
@@ -72,7 +74,7 @@ public class LoginGUI extends JPanel{
     DoneButton.setBackground(Color.lightGray);
     
     showPassword.setBackground(Color.lightGray);
-   
+    loginButton.addActionListener(new LoginButtonListener());
   }
 
   public JButton getLoginButton() {
@@ -119,5 +121,19 @@ public class LoginGUI extends JPanel{
         frame.setVisible(true);
 
     }
+
+    private class LoginButtonListener implements ActionListener {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        
+        // UserAuth userAuth = new UserAuth();
+        Secure_viewGUI  secure_viewGUI  = new Secure_viewGUI();
+        // LoginGUI loginGUI = new LoginGUI(userAuth);
+        // userAuth.showLoginWindow();
+        secure_viewGUI.createAndShowGUI();
+      }
+    }
+
+
  
 }

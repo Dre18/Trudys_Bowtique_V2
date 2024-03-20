@@ -1,13 +1,11 @@
 package APP.AuthenticationandAuthorization;
 import javax.swing.*;
 
-import APP.Secure_viewGUI;
 import APP.System_User_Interface.MainView;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.function.Consumer;
-import javax.swing.*;
 
 
 public class UserAuth implements ActionListener {
@@ -25,10 +23,10 @@ public class UserAuth implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
       if (e.getSource() == loginGUI.getLoginButton()) {
-//        ActionListener listener = new UserAuth(); // Replace with your implementation
+       ActionListener listener = new UserAuth(); // Replace with your implementation
 
-//     // Create Secure_viewGUI object
-//     Secure_viewGUI secureViewGUI = new Secure_viewGUI(listener); 
+    // Create Secure_viewGUI object
+//     Secure_viewGUI secureViewGUI = new Secure_viewGUI(); 
 // // 
 //     // Create JFrame window
 //     JFrame frame = new JFrame("Secure View");
