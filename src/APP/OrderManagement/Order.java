@@ -255,8 +255,11 @@ public void createAndShowGUI() {
 	// Frame f=new Frame("ActionListener Example");  
 		
 		addRecord.setBounds(50,100,60,30);  
+		Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
 		
-		setSize(400,400);  
+      int width = size.width;
+      int height = size.height;
+      setSize(width, height);
 		setLayout(null);  
 		setVisible(true);
 

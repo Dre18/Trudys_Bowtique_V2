@@ -142,10 +142,13 @@ public class LoginGUI extends JPanel{
           // Login successful, show secure view or perform other actions
           Secure_viewGUI secure_viewGUI = new Secure_viewGUI();
           secure_viewGUI.createAndShowGUI();
+          LoginGUI loginGUI = new LoginGUI(userAuth);
+          // loginGUI.setDefaultCloseOperation(EXIT_ON_CLOSE);
       } else {
           showError("Invalid username or password!");
       }
   }
+      
 }
 }
 
