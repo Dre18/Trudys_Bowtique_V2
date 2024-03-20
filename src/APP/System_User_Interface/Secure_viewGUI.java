@@ -42,23 +42,5 @@ public class Secure_viewGUI extends JPanel {
       frame.setLocationRelativeTo(null);
     }
 
-    // public static void main(String[] args) {
-    //     // Create an instance of the GUI class
-
-    //     Secure_viewGUI gui = new Secure_viewGUI();
-    //     // Create a JFrame to hold the panel
-    //     JFrame frame = new JFrame("Secure View");
-    //     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    //     frame.getContentPane().add(gui);
-
-    //     // Set the frame size and make it visible
-    //     frame.pack();
-    //     frame.setVisible(true);
-    //     Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
-    //     int width = size.width;
-    //     int height = size.height;
-    //     frame.setSize(width, height);
-    //     frame.setLocationRelativeTo(null);
-
-    // }
+   
 }

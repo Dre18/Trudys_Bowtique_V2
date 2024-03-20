@@ -110,6 +110,18 @@ public class LoginGUI extends JPanel{
     passwordField.setText("");
   }
 
+  public boolean performLogin() {
+    String username = getUsername();
+    String password = getPassword();
+
+    // Implement your login algorithm here
+    // This is a placeholder, replace with your actual logic
+    if (username.equals("admin") && password.equals("admin")) {
+        return true; // Login successful
+    } else {
+        return false; // Login failed
+    }
+}
 
   public void createAndShowGUI() {
         JFrame frame = new JFrame("Login");
@@ -126,14 +138,20 @@ public class LoginGUI extends JPanel{
       @Override
       public void actionPerformed(ActionEvent e) {
         
-        // UserAuth userAuth = new UserAuth();
-        Secure_viewGUI  secure_viewGUI  = new Secure_viewGUI();
-        // LoginGUI loginGUI = new LoginGUI(userAuth);
-        // userAuth.showLoginWindow();
-        secure_viewGUI.createAndShowGUI();
+        // // UserAuth userAuth = new UserAuth();
+        // Secure_viewGUI  secure_viewGUI  = new Secure_viewGUI();
+        // // LoginGUI loginGUI = new LoginGUI(userAuth);
+        // // userAuth.showLoginWindow();
+        // secure_viewGUI.createAndShowGUI();
+
+        if (performLogin()) {
+          // Login successful, show secure view or perform other actions
+          Secure_viewGUI secure_viewGUI = new Secure_viewGUI();
+          secure_viewGUI.createAndShowGUI();
+      } else {
+          showError("Invalid username or password!");
       }
-    }
-
-
- 
+  }
 }
+}
+
