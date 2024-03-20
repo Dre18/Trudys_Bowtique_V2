@@ -252,13 +252,13 @@ public class Order extends JFrame implements ActionListener{
     }
 
 public void createAndShowGUI() {
-	Frame f=new Frame("ActionListener Example");  
+	// Frame f=new Frame("ActionListener Example");  
 		
 		addRecord.setBounds(50,100,60,30);  
 		
-		f.setSize(400,400);  
-		f.setLayout(null);  
-		f.setVisible(true);
+		setSize(400,400);  
+		setLayout(null);  
+		setVisible(true);
 
 }
 
