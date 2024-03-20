@@ -2,6 +2,8 @@ package APP.System_User_Interface;
 
 import javax.swing.*;
 
+import APP.OrderManagement.Order;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,6 +31,7 @@ public class Secure_viewGUI extends JPanel {
 
 
         Stock.addActionListener(new StockButtonListener());
+        Orders.addActionListener(new OrderButtonListener());
     }
 
 
@@ -56,6 +59,18 @@ public class Secure_viewGUI extends JPanel {
             // Login successful, show secure view or perform other actions
             APP.StockManagement.Stock stock  = new APP.StockManagement.Stock();
             stock.createAndShowGUI();
+        
+        }
+    }
+
+    private class OrderButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+       
+          
+            // Login successful, show secure view or perform other actions
+            APP.OrderManagement.Order order  = new APP.OrderManagement.Order();
+            order.createAndShowGUI();
         
         }
     }
