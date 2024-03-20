@@ -137,13 +137,7 @@ public class LoginGUI extends JPanel{
     private class LoginButtonListener implements ActionListener {
       @Override
       public void actionPerformed(ActionEvent e) {
-        
-        // // UserAuth userAuth = new UserAuth();
-        // Secure_viewGUI  secure_viewGUI  = new Secure_viewGUI();
-        // // LoginGUI loginGUI = new LoginGUI(userAuth);
-        // // userAuth.showLoginWindow();
-        // secure_viewGUI.createAndShowGUI();
-
+     
         if (performLogin()) {
           // Login successful, show secure view or perform other actions
           Secure_viewGUI secure_viewGUI = new Secure_viewGUI();

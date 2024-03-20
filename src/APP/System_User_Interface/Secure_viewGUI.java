@@ -3,6 +3,8 @@ package APP.System_User_Interface;
 import javax.swing.*;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Secure_viewGUI extends JPanel {
 
@@ -24,6 +26,9 @@ public class Secure_viewGUI extends JPanel {
 
         // Add the panel to the center of the main panel
         add(buttonPanel, BorderLayout.CENTER);
+
+
+        Stock.addActionListener(new StockButtonListener());
     }
 
 
@@ -42,5 +47,17 @@ public class Secure_viewGUI extends JPanel {
       frame.setLocationRelativeTo(null);
     }
 
+    
+    private class StockButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+       
+          
+            // Login successful, show secure view or perform other actions
+            APP.StockManagement.Stock stock  = new APP.StockManagement.Stock();
+            stock.createAndShowGUI();
+        
+        }
+    }
    
 }
