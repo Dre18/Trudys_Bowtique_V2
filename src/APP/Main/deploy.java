@@ -59,7 +59,7 @@ public class deploy extends JPanel {
 
                 }
                 
-                // DLineAlert datess= new DLineAlert();
+               
                 }
         });
     }

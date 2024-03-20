@@ -91,7 +91,10 @@ public class LoginGUI extends JPanel{
   public String getUsername() {
     return usernameField.getText();
   }
-
+  public JPasswordField getpasswordField()
+  {
+    return passwordField;
+  }
   public String getPassword() {
     return String.valueOf(passwordField.getPassword());
   }
