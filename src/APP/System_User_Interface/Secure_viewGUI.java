@@ -71,8 +71,8 @@ public class Secure_viewGUI extends JPanel {
        
           
             // Login successful, show secure view or perform other actions
-            APP.OrderManagement.Order order  = new APP.OrderManagement.Order();
-            order.createAndShowGUI();
+            APP.OrderManagement.Order_GUI order_Gui  = new APP.OrderManagement.Order_GUI();
+            order_Gui.createAndShowGUI();
         
         }
     }

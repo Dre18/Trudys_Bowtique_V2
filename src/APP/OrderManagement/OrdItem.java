@@ -17,6 +17,8 @@ public class OrdItem{
        private Date date;
        private String deadline;
         private String status_2;
+        // private String status;
+        
         
 
         public OrdItem(int ordnum, String name, String addr, String date, String status_2, String ordDescrip, String phonenum, String cost) {
@@ -45,9 +47,19 @@ public class OrdItem{
             this.phonenum=phonenum;
             this.cost=cost;
             this.status_2=status[0];
+            
+        
 
     
         }
+
+
+        // public void setStatus(String status) {
+        //     // Validate status (optional)
+        //     // You can add logic to check if the provided status is valid (e.g., from a predefined list of allowed statuses)
+        //     this.status = status;
+        // }
+
 
         public String getDescrp()
         {
