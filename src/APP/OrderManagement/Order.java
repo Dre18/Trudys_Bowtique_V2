@@ -21,7 +21,7 @@ import javax.swing.plaf.InsetsUIResource;
 import javax.swing.table.DefaultTableModel;
 
 // import APP.NotificationsandEvents.DLineAlert;
-import APP.StockManagement.Stock;
+// import APP.StockManagement.Stock;
 
 import javax.swing.*;
 
@@ -256,7 +256,7 @@ public void createAndShowGUI() {
 		
 		addRecord.setBounds(50,100,60,30);  
 		Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
-		
+		// Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
       int width = size.width;
       int height = size.height;
       setSize(width, height);

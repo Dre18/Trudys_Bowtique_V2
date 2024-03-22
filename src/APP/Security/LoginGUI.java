@@ -1,4 +1,4 @@
-package APP.AuthenticationandAuthorization;
+package APP.Security;
 
 import java.awt.Color;
 import java.awt.Container;
@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import APP.System_User_Interface.MainView;
+// import APP.System_User_Interface.MainView;
 import APP.System_User_Interface.Secure_viewGUI;
 
 public class LoginGUI extends JPanel{

@@ -2,8 +2,8 @@ package APP.System_User_Interface;
 
 import javax.swing.*;
 
-import APP.AuthenticationandAuthorization.LoginGUI;
-import APP.AuthenticationandAuthorization.UserAuth;
+import APP.Security.LoginGUI;
+import APP.Security.UserAuth;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

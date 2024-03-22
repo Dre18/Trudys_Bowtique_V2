@@ -20,7 +20,10 @@ public class Item{
         public String getItemName() {
             return name;
         }
-    
+        public void setItemName(String name)
+        {
+            this.name = name;
+        }
         
         /** 
          * @return int
