@@ -2,7 +2,6 @@ package APP.System_User_Interface;
 
 import javax.swing.*;
 
-import APP.Security.LoginGUI;
 import APP.Security.UserAuth;
 
 import java.awt.*;

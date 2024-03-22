@@ -1,9 +1,11 @@
-package APP.StockManagement;
+package APP.System_User_Interface;
 
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.plaf.BorderUIResource;
 import javax.swing.table.DefaultTableModel;
+
+import APP.StockManagement.Stock;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

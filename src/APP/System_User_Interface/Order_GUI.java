@@ -1,4 +1,4 @@
-package APP.OrderManagement;
+package APP.System_User_Interface;
 
 import java.awt.*;
 import java.io.BufferedReader;
@@ -24,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
 
 // import APP.NotificationsandEvents.DLineAlert;
 import APP.StockManagement.Stock;
-import APP.System_User_Interface.Secure_viewGUI;
+import APP.OrderManagement.OrdItem;
 import APP.OrderManagement.Order;
 
 import javax.swing.*;
@@ -66,6 +66,10 @@ public class Order_GUI extends JFrame{
 
     public Order_GUI() {
         
+
+
+// 
+
 
         toppanel=new JPanel();  
         ordWindow = new JFrame();

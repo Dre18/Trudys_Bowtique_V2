@@ -4,8 +4,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import APP.Security.LoginGUI;
 import APP.Security.UserAuth;
+import APP.System_User_Interface.LoginGUI;
 import APP.System_User_Interface.Sign_inGUI;
 
 import java.awt.Dimension;
