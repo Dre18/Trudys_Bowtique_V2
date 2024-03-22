@@ -8,7 +8,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class StockManagement {
+public class Stock {
 
     private static final String FILE_NAME = "StockList.dat";
     private ArrayList<Item> itemList;
@@ -17,7 +17,7 @@ public class StockManagement {
     private static ArrayList<Item> ilist;
     private String resadd;
 
-    public StockManagement() {
+    public Stock() {
         itemList = loadStock(FILE_NAME);
         tableModel = new DefaultTableModel(new String[]{"Items", "Quantity"}, 0);
         table = new JTable(tableModel);
@@ -155,9 +155,60 @@ public class StockManagement {
         }
     }
 
+    // public void deleteItem() {
+    //     // Implement logic to update the selected item in the table and itemList
+    //     // Update the table model accordingly
+    //     int selectedRow = table.getSelectedRow();
 
+    //     if (selectedRow >= 0) {
+    //         String Name = JOptionPane.showInputDialog(null, "Enter name:");
+    //         // String newQuantityString = JOptionPane.showInputDialog(null, "Enter quantity:");
+
+    //         if (Name != null ) {
+    //             try {
+    //                 // int newQuantity = Integer.parseInt(newQuantityString);
+    //                 Item itemToDelete = itemList.get(selectedRow);
+    //                 itemToDelete.setItemName("");
+    //                 itemToDelete.changeQuantity(Integer.parseInt(""));
+    //                 addToTable(itemToDelete);
+    //                 writeStockToFile(); // Update the file after successful update
+    //             } catch (NumberFormatException e) {
+    //                 JOptionPane.showMessageDialog(null, "Quantity Invalid");
+    //             }
+    //         }
+    //     } else {
+    //         JOptionPane.showMessageDialog(null, "Please select an item to update");
+    //     }
+    // }
+
+
+
+    public void deleteItem() {
+        int selectedRow = table.getSelectedRow();
     
+        if (selectedRow >= 0) {
+            if (JOptionPane.showConfirmDialog(null,
+                    "Are you sure you want to delete this item?",
+                    "Confirmation", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
     
+                // Get the item to be deleted
+                Item itemToDelete = itemList.get(selectedRow);
+    
+                // Remove the item from the list
+                itemList.remove(itemToDelete);
+    
+                // Remove the item from the table model
+                tableModel.removeRow(selectedRow);
+    
+                // Update the file with the changes
+                writeStockToFile();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Please select an item to delete");
+        }
+    }
+
+
 
 }
     

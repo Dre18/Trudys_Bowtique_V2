@@ -4,7 +4,7 @@ import javax.swing.*;
 
 import APP.OrderManagement.Order;
 import APP.StockManagement.Stock_GUI;
-import APP.StockManagement.StockManagement;
+import APP.StockManagement.Stock;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -56,7 +56,7 @@ public class Secure_viewGUI extends JPanel {
     private class StockButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            APP.StockManagement.StockManagement stock  = new StockManagement();
+            APP.StockManagement.Stock stock  = new Stock();
           
             // Login successful, show secure view or perform other actions
             APP.StockManagement.Stock_GUI stock_GUI  = new Stock_GUI(stock);

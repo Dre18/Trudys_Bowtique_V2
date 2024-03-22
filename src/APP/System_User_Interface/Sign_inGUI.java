@@ -21,13 +21,6 @@ public class Sign_inGUI extends JPanel {
 
     // Initialize GUI components
 
-    // JPanel displayPanel = new JPanel();
-      
-    //     displayPanel.setPreferredSize(displayPanel.getToolkit().getScreenSize());
-    //     displayPanel.setLayout(null);
-    //     panelColor = new Color(123, 154, 239);
-    //     displayPanel.setBackground(panelColor);
-
     closeButton = new JButton("Close");
     loginButton = new JButton("Login");
 
