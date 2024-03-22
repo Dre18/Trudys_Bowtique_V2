@@ -156,16 +156,7 @@ public class StockManagement {
     }
 
 
-    // public void createAndShowGUI() {
-    //     JFrame frame = new JFrame("Stock ghk;lg;erwhdfnkewl;vbjxj");
-    //     StockManagement newContentPane = new StockManagement();
-    //     frame.setPreferredSize(frame.getToolkit().getScreenSize());
-    //     // setOpaque(true);
-    //     setContentPane(newContentPane);
-    //     frame.pack();
-    //     frame.setVisible(true);
-
-    // }
+    
     
 
 }
