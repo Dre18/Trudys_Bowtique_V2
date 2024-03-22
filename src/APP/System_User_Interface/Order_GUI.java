@@ -23,7 +23,7 @@ import javax.swing.plaf.InsetsUIResource;
 import javax.swing.table.DefaultTableModel;
 
 // import APP.NotificationsandEvents.DLineAlert;
-import APP.StockManagement.Stock;
+// import APP.StockManagement.Stock;
 import APP.OrderManagement.OrdItem;
 import APP.OrderManagement.Order;
 

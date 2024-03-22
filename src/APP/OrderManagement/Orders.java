@@ -252,13 +252,18 @@ public class Orders extends JFrame implements ActionListener{
     }
 
 public void createAndShowGUI() {
-	Frame f=new Frame("ActionListener Example");  
-		
-		addRecord.setBounds(50,100,60,30);  
-		
-		f.setSize(400,400);  
-		f.setLayout(null);  
-		f.setVisible(true);
+	JFrame frame = new JFrame("Order");
+      
+    
+        addRecord.setBounds(50,100,60,30); 
+        frame.pack(); 
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
+        int width = size.width;
+        int height = size.height;
+        frame.setSize(width, height);
+        frame.setLocationRelativeTo(null);  
+        setLayout(null);  
 
 }
 
