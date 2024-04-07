@@ -26,6 +26,7 @@ import javax.swing.table.DefaultTableModel;
 // import APP.StockManagement.Stock;
 import APP.OrderManagement.OrdItem;
 import APP.OrderManagement.Order;
+import APP.StockManagement.Stock;
 
 import javax.swing.*;
 
@@ -49,6 +50,7 @@ public class Order_GUI extends JFrame{
     private ArrayList<OrdItem> orderList;
     private JMenuBar optionBar;
 	private String details;
+    private Orderpanel newOrder;
 	JMenuItem addRecord;
 	JMenu editRecord;
 	JMenuItem savetable;
@@ -122,8 +124,8 @@ public class Order_GUI extends JFrame{
 			optionBar.add(sortRecord);
 
 			
-            // addRecord.addActionListener(this);
-			// editRecord.addActionListener(this);
+            addRecord.addActionListener(new addNewRecord());
+			// editRecord.addActionListener(new editRecord());
 			// delRecord.addActionListener(this);
             this.setJMenuBar(optionBar);
             this.add(toppanel, BorderLayout.CENTER); 
@@ -196,14 +198,17 @@ public class Order_GUI extends JFrame{
             return str;
         }
     
+        
+
+
     public void createAndShowGUI() {
 
 
         // Secure_viewGUI gui = new Secure_viewGUI();
-      JFrame frame = new JFrame("Order");
+        JFrame frame = new JFrame("Order");
       
     
-        addRecord.setBounds(50,100,60,30); 
+        addRecord.setBounds(50,100,60,30);
         frame.pack(); 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
@@ -266,6 +271,159 @@ public class Order_GUI extends JFrame{
             }
             return orderList;
         }
-    
 
-    }
+
+
+
+      
+
+
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource()==addRecord){
+                Orderpanel o =new Orderpanel();
+            }
+         
+            if (e.getSource()==savetable){
+                if  ( table.isEditing() )
+                {
+                    String val;
+                    int row = table.getEditingRow();
+                    int col = table.getEditingColumn();
+                    table.getCellEditor(row, col).stopCellEditing();
+                    int count= table.getRowCount();
+                    int num=0;
+                    for (OrdItem i: orderList){
+                    
+                        val= table.getValueAt(row,col).toString();
+                        String tempfile = "temp.dat";
+                        String currentline;
+                        File oldfile= new File(file);
+                        File newfile = new File(tempfile);
+                        try {
+                            FileWriter fw = new FileWriter(tempfile, true);
+                            BufferedWriter bw = new BufferedWriter(fw);
+                            PrintWriter pw = new PrintWriter(bw);
+            
+                            FileReader fr = new FileReader(file);
+                            BufferedReader br = new BufferedReader(fr);
+                            
+                            while ((currentline =br.readLine()) != null) {
+                                String[] data = currentline.split(" ");
+                                
+                                if (!(num==row)) {
+                                     pw.println(currentline);
+                                }
+                                else{
+                                    data[col]=val;
+                                    String txt= data[0]+" "+data[1].replace(" ", "_")+ " "+data[2]+ " "+data[3]+" "+data[4]+" "+data[5]+" "+ data[6]+" "+data[7];
+                                    pw.println(txt);
+                                }
+                                num++;
+                                
+                            }
+                            pw.flush();
+                            pw.close();
+                            br.close();
+                            fr.close();
+                            fw.close();
+                            bw.close();
+            
+                            oldfile.delete();
+                            File temp = new File(file);
+                            newfile.renameTo(temp);
+                        }
+            
+                        catch (IOException IO) {
+                        }
+                    }
+                    
+                }
+            }
+            
+        
+        
+            
+        //     if (e.getSource()==sortByOrdNum){
+        
+        //     Collections.sort(orderList, new Comp());
+        //     model.setRowCount(0);
+        //     showTable(orderList);
+        // }  
+        
+        //     if (e.getSource()==sortByDeadline){
+        //         Collections.sort(orderList, new CompD3());
+        //         model.setRowCount(0);
+        //         showTable(orderList);
+                
+        
+        //     }
+        //     if (e.getSource()==sortByCompleted){
+        //         Collections.sort(orderList, new CompD2());
+        //         model.setRowCount(0);
+        //         showTable(orderList);
+        //     }
+            
+        //     if (e.getSource()==sortByIncomplete){
+        //         Collections.reverse(orderList);
+        //         model.setRowCount(0);
+        //         showTable(orderList);
+        //     }
+            
+        }
+
+
+    //     private class DeleteButtonListener implements ActionListener {
+    //         @Override
+    //         public void actionPerformed(ActionEvent e) {
+        
+    //         if (e.getSource() == APP.System_User_Interface.Orderpanel.Done){
+    //             Orderpanel newOrd =new Orderpanel();
+    //             FileWriter f;
+    //             try {
+    //                 f = new FileWriter(file, true);
+                
+    //                     BufferedWriter b = new BufferedWriter(f);
+    //                     PrintWriter w = new PrintWriter(b);
+    //                     OrdItem o = new OrdItem(APP.System_User_Interface.Orderpanel.tname.getText(), APP.System_User_Interface.Orderpanel.t_dline.getText(), APP.System_User_Interface.Orderpanel.tadd.getText(), getDescrp(), APP.System_User_Interface.Orderpanel.t_mob.getText(), APP.System_User_Interface.Orderpanel.t_cost.getText());
+    //                     w.println(o.getOrdnum() + " " + o.getName().replace(" ", "_") + " " + o.getStatus_2() + " "
+    //                             + o.getDeadline() + " " +o.getPhonenum()+" "+ o.getAddr().replace(" ", "_").replace("\n", "~") + " " + o.getOrdDescrip().replace(" ","_").replace("\n", "~") + " " + o.getCost());
+    //                             // System.out.println("Description: " + o.getOrdDescrip());
+    //                             // String reduceStockContent = getRStock();
+    //                             System.out.println("Content of 'reduce stock by': ");
+    //                             // System.out.println(reduceStockContent);
+    
+    //                     w.flush();
+    //                     w.close();
+    //                     b.close();
+    //                     f.close();
+    //                     APP.OrderManagement.Order.getOrderList().add(o);
+    //                     // .setVisible(false);
+    
+    //                 } catch (IOException e1) {
+    //                     JOptionPane.showMessageDialog(newOrd, "Something went wrong");;
+    //                 }
+    //                 model.setRowCount(0);
+    //                 orderList=loadItems(file);
+    //                 showTable(orderList);
+    //         }
+            
+    //     }
+       
+         
+   
+        
+        private class addNewRecord implements ActionListener{
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               APP.System_User_Interface.Orderpanel newOrder  = new Orderpanel();
+          
+            // Login successful, show secure view or perform other actions
+            // APP.System_User_Interface.Stock_GUI stock_GUI  = new Stock_GUI(stockManagement);
+            // newOrder.createAndShowGUI();
+            }
+        }
+
+
+}
+
+  

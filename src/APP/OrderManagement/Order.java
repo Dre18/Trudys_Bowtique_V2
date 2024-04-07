@@ -28,7 +28,7 @@ public class Order {
         orderList = loadItems(FILE_NAME);
     }
 
-    public ArrayList<OrdItem> getOrderList() {
+    public  ArrayList<OrdItem> getOrderList() {
         return orderList;
     }
 

@@ -55,10 +55,10 @@ public class Secure_viewGUI extends JPanel {
     private class StockButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            APP.StockManagement.Stock stock  = new Stock();
+            APP.StockManagement.Stock stockManagement  = new Stock();
           
             // Login successful, show secure view or perform other actions
-            APP.System_User_Interface.Stock_GUI stock_GUI  = new Stock_GUI(stock);
+            APP.System_User_Interface.Stock_GUI stock_GUI  = new Stock_GUI(stockManagement);
             stock_GUI.createAndShowGUI();
         
         }
@@ -70,10 +70,10 @@ public class Secure_viewGUI extends JPanel {
        
           
             // Login successful, show secure view or perform other actions
-            // APP.System_User_Interface.Order_GUI order_Gui  = new APP.System_User_Interface.Order_GUI();
-            // order_Gui.createAndShowGUI();
-            APP.OrderManagement.Orders order  = new APP.OrderManagement.Orders();
-            order.createAndShowGUI();
+            APP.System_User_Interface.Order_GUI order_Gui  = new APP.System_User_Interface.Order_GUI();
+            order_Gui.createAndShowGUI();
+            // APP.OrderManagement.Orders order  = new APP.OrderManagement.Orders();
+            // order.createAndShowGUI();
         
         }
     }
