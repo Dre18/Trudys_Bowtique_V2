@@ -29,6 +29,11 @@ import javax.swing.*;
 import java.awt.*;    
 import java.awt.event.*;
 
+// package APP.OrderManagement;
+
+
+
+
 public class Orders extends JFrame implements ActionListener{
     private DefaultTableModel model;
     private JTable table;
@@ -37,7 +42,7 @@ public class Orders extends JFrame implements ActionListener{
     private JFrame ordWindow;
     private JTextArea detailspanel;
     private JPanel bottompanel;
-    private static final String file = "OrderList.dat";
+    private static final String file= "OrderList.dat";
     private ArrayList<OrdItem> orderList;
     private JMenuBar optionBar;
 	private String details;
@@ -178,7 +183,7 @@ public class Orders extends JFrame implements ActionListener{
 					String descrip = nextLine[6].replace("_"," ").replace("~","\n\t    ");
 					String cost = nextLine[7]; 
 				             
-				str = "Order No. : " + ordnum +"\n\nCustomer:  "+ name+ "           Phone number: " +phonenum+"\n\n Address: "+ addr+ "\n\n Deadline: " +date +"          Status of Order: "+ status +
+				str = "Order No. : " + ordnum +"\n\nCustomer:  "+ name+ "           Phone number: " +phonenum+"\n\n Adrress: "+ addr+ "\n\n Deadline: " +date +"          Status of Order: "+ status +
 				"\n\n Order Description: "+descrip +"\n\n Total Cost: "+ cost ;
 				
 			}
@@ -215,7 +220,7 @@ public class Orders extends JFrame implements ActionListener{
                 String descrip = nextLine[6].replace("_"," ");
                 String cost = nextLine[7];                
 			OrdItem O = new OrdItem(ordnum, name, addr, date, status,descrip,  phonenum, cost) ;
-            orderList.add(O);
+        orderList.add(O);
                 
 
             }
@@ -251,21 +256,21 @@ public class Orders extends JFrame implements ActionListener{
 
     }
 
-public void createAndShowGUI() {
-	JFrame frame = new JFrame("Order");
-      
+    public void createAndShowGUI() {
+        JFrame frame = new JFrame("Order");
+          
+        
+            addRecord.setBounds(50,100,60,30); 
+            frame.pack(); 
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
+            int width = size.width;
+            int height = size.height;
+            frame.setSize(width, height);
+            frame.setLocationRelativeTo(null);  
+            setLayout(null);  
     
-        addRecord.setBounds(50,100,60,30); 
-        frame.pack(); 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
-        int width = size.width;
-        int height = size.height;
-        frame.setSize(width, height);
-        frame.setLocationRelativeTo(null);  
-        setLayout(null);  
-
-}
+    }
 
 /** 
  * @param str
@@ -334,7 +339,7 @@ private class Orderpanel extends JFrame implements ActionListener{
     private JTextArea tadd;
     private JButton Done;
   
-    public JTextArea resadd;
+    private JTextArea resadd;
  
 
     public Orderpanel(){
@@ -460,32 +465,21 @@ private class Orderpanel extends JFrame implements ActionListener{
 		
     
     }
-    public String getDescrp() {
-    return t_Descrp.getText();
-    }
-    public String getRStock() {
-        return resadd.getText();
-        }
 
-    
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == Done){
+		if (e.getSource() ==Done){
 			FileWriter f;
 			try {
 				f = new FileWriter(file, true);
 			
                     BufferedWriter b = new BufferedWriter(f);
                     PrintWriter w = new PrintWriter(b);
-					OrdItem o = new OrdItem(tname.getText(), t_dline.getText(), tadd.getText(), getDescrp(), t_mob.getText(), t_cost.getText());
+					OrdItem o = new OrdItem(tname.getText(), t_dline.getText(), tadd.getText(), t_Descrp.getText(), t_mob.getText(), t_cost.getText());
                     w.println(o.getOrdnum() + " " + o.getName().replace(" ", "_") + " " + o.getStatus_2() + " "
                             + o.getDeadline() + " " +o.getPhonenum()+" "+ o.getAddr().replace(" ", "_").replace("\n", "~") + " " + o.getOrdDescrip().replace(" ","_").replace("\n", "~") + " " + o.getCost());
-                            // System.out.println("Description: " + o.getOrdDescrip());
-                            // String reduceStockContent = getRStock();
-                            System.out.println("Content of 'reduce stock by': ");
-                            // System.out.println(reduceStockContent);
-
+                    
 					w.flush();
 					w.close();
 					b.close();
@@ -502,7 +496,6 @@ private class Orderpanel extends JFrame implements ActionListener{
 		}
 		
 	}
-   
 	
 }
 
@@ -664,11 +657,5 @@ private class CompD3 implements Comparator<OrdItem>
 		return n;
     }
 }
-
-
-
-
-
-
 }
 

@@ -1,13 +1,16 @@
 package APP.System_User_Interface;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -30,7 +33,12 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.plaf.InsetsUIResource;
 
+import org.w3c.dom.events.MouseEvent;
+
 import APP.OrderManagement.OrdItem;
+import APP.System_User_Interface.Order_GUI;
+import APP.OrderManagement.Order;
+
 
 
 class Orderpanel extends JFrame {
@@ -39,17 +47,17 @@ class Orderpanel extends JFrame {
     private Container a;
     private JLabel title;
     private JLabel name;
-    private JTextField tname;
+    public static JTextField tname;
     private JLabel mobile;
-    private JTextField t_mob;
+    public static JTextField t_mob;
     private JLabel Descrp;
-    private JTextArea t_Descrp;
+    private static JTextArea t_Descrp;
     private JLabel cost;
-    private JTextField t_cost;
+    public static JTextField t_cost;
     private JLabel dline;
-    private JTextField t_dline;
+    public static JTextField t_dline;
     private JLabel add;
-    private JTextArea tadd;
+    public static JTextArea tadd;
     public static JButton Done;
   
     public JTextArea resadd;
@@ -151,7 +159,7 @@ class Orderpanel extends JFrame {
         Done.setFont(new Font("Arial", Font.PLAIN, 15));
         Done.setSize(100, 20);
         Done.setLocation(270, 600);
-        // Done.addActionListener(this);
+        // Done.addActionListener(new DoneButton());
         c.add(Done);
     
         
@@ -176,10 +184,44 @@ class Orderpanel extends JFrame {
         a.add(b, BorderLayout.CENTER);
         setVisible(true);
 		
+
+        
     
     }
 
 
+    
+
+    public void actionPerformed(ActionEvent e) {
+		if (e.getSource() ==Done){
+			FileWriter f;
+			try {
+				f = new FileWriter(APP.System_User_Interface.Order_GUI.file, true);
+			
+                    BufferedWriter b = new BufferedWriter(f);
+                    PrintWriter w = new PrintWriter(b);
+					OrdItem o = new OrdItem(tname.getText(), t_dline.getText(), tadd.getText(), t_Descrp.getText(), t_mob.getText(), t_cost.getText());
+                    w.println(o.getOrdnum() + " " + o.getName().replace(" ", "_") + " " + o.getStatus_2() + " "
+                            + o.getDeadline() + " " +o.getPhonenum()+" "+ o.getAddr().replace(" ", "_").replace("\n", "~") + " " + o.getOrdDescrip().replace(" ","_").replace("\n", "~") + " " + o.getCost());
+                    
+					w.flush();
+					w.close();
+					b.close();
+					f.close();
+                    APP.OrderManagement.Order.getOrderList().add(o);
+					this.setVisible(false);
+
+				} catch (IOException e1) {
+					JOptionPane.showMessageDialog(this, "Something went wrong");;
+				}
+				APP.System_User_Interface.Order_GUI.model.setRowCount(0);
+                APP.OrderManagement.Order.orderList=APP.OrderManagement.Order.loadItems(APP.System_User_Interface.Order_GUI.file);
+                APP.System_User_Interface.Order_GUI.showTable( APP.OrderManagement.Order.orderList);
+		}
+		
+	}
+	
+// }
     
     public void createAndShowGUI() {
 
@@ -199,7 +241,7 @@ class Orderpanel extends JFrame {
      
         }
 
-    public String getDescrp() 
+    public static String getDescrp() 
     {
     return t_Descrp.getText();
     }
@@ -216,157 +258,4 @@ class Orderpanel extends JFrame {
 
 
 
-// @Override
-// public void actionPerformed(ActionEvent e) {
-//     if (e.getSource()==addRecord){
-// 		Orderpanel o =new Orderpanel();
-// 	}
-// 	if (e.getSource()==delRecord){
-// 		int row = table.getSelectedRow();
-// 		String val ="";
-    
-
-// 	   if (createJOptionpane("Are you sure you want to delete this item")==0){
-// 			for (OrdItem i : orderList) {
-// 				if (i.getOrdnum()==(Integer.parseInt(table.getValueAt(row, 0).toString()))){
-// 					val=""+i.getOrdnum();
-// 					removeRecord(val);
-// 					orderList.remove(i);
-// 					model.setRowCount(0);
-// 					showTable(orderList);
-// 					break;
-		
-// 				}   
-// 			}
-// 		}
-
-// 	}
-// 	if (e.getSource()==savetable){
-// 		if  ( table.isEditing() )
-// 		{
-// 			String val;
-// 			int row = table.getEditingRow();
-// 			int col = table.getEditingColumn();
-// 			table.getCellEditor(row, col).stopCellEditing();
-// 			int count= table.getRowCount();
-// 			int num=0;
-// 			for (OrdItem i: orderList){
-			
-// 				val= table.getValueAt(row,col).toString();
-// 				String tempfile = "temp.dat";
-// 				String currentline;
-// 				File oldfile= new File(file);
-// 				File newfile = new File(tempfile);
-// 				try {
-// 					FileWriter fw = new FileWriter(tempfile, true);
-// 					BufferedWriter bw = new BufferedWriter(fw);
-// 					PrintWriter pw = new PrintWriter(bw);
-	
-// 					FileReader fr = new FileReader(file);
-// 					BufferedReader br = new BufferedReader(fr);
-					
-// 					while ((currentline =br.readLine()) != null) {
-// 						String[] data = currentline.split(" ");
-						
-// 						if (!(num==row)) {
-// 							 pw.println(currentline);
-// 						}
-// 						else{
-// 							data[col]=val;
-// 							String txt= data[0]+" "+data[1].replace(" ", "_")+ " "+data[2]+ " "+data[3]+" "+data[4]+" "+data[5]+" "+ data[6]+" "+data[7];
-// 							pw.println(txt);
-// 						}
-// 						num++;
-						
-// 					}
-// 					pw.flush();
-// 					pw.close();
-// 					br.close();
-// 					fr.close();
-// 					fw.close();
-// 					bw.close();
-	
-// 					oldfile.delete();
-// 					File temp = new File(file);
-// 					newfile.renameTo(temp);
-// 				}
-	
-// 				catch (IOException IO) {
-// 				}
-// 			}
-			
-// 		}
-// 	}
-	
-
-
-	
-// 	if (e.getSource()==sortByOrdNum){
-
-// 	Collections.sort(orderList, new Comp());
-// 	model.setRowCount(0);
-// 	showTable(orderList);
-// }  
-
-//     if (e.getSource()==sortByDeadline){
-// 		Collections.sort(orderList, new CompD3());
-// 		model.setRowCount(0);
-// 		showTable(orderList);
-		
-
-//     }
-//     if (e.getSource()==sortByCompleted){
-// 		Collections.sort(orderList, new CompD2());
-// 		model.setRowCount(0);
-// 		showTable(orderList);
-//     }
-	
-//     if (e.getSource()==sortByIncomplete){
-// 		Collections.reverse(orderList);
-// 		model.setRowCount(0);
-// 		showTable(orderList);
-//     }
-	
-// }
-
-private class Comp implements Comparator<OrdItem>
-{
-    @Override
-    public int compare(OrdItem o1, OrdItem o2) {
-        return o1.getOrdnum()- (o2.getOrdnum());
-    }
-}
-private class CompD2 implements Comparator<OrdItem>
-{
-
-    @Override
-    public int compare(OrdItem o1, OrdItem o2) {
-        return o1.getStatus_2().compareTo(o2.getStatus_2());
-    }
-}
-private class CompD3 implements Comparator<OrdItem> 
-{
-    @Override
-    public int compare(OrdItem o1, OrdItem o2) {
-		
-		SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
-		Date date1;
-		Date date2;
-		int n=0;
-		
-		try {
-				date1= f.parse(o1.getDeadline());
-		
-			    date2=f.parse(o2.getDeadline());
-				n = (date1.compareTo((date2)));
-			
-		} 
-	 
-		catch (ParseException e) {
-			e.printStackTrace();
-		}	
-		
-		return n;
-    }
-}
 }
