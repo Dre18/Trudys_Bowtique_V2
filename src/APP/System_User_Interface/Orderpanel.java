@@ -159,7 +159,7 @@ class Orderpanel extends JFrame {
         Done.setFont(new Font("Arial", Font.PLAIN, 15));
         Done.setSize(100, 20);
         Done.setLocation(270, 600);
-        // Done.addActionListener(new DoneButton());
+        Done.addActionListener(new DoneButton());
         c.add(Done);
     
         
@@ -190,7 +190,9 @@ class Orderpanel extends JFrame {
     }
 
 
-    
+    private class DoneButton implements ActionListener
+    {
+        @Override 
 
     public void actionPerformed(ActionEvent e) {
 		if (e.getSource() ==Done){
@@ -209,10 +211,12 @@ class Orderpanel extends JFrame {
 					b.close();
 					f.close();
                     APP.OrderManagement.Order.getOrderList().add(o);
-					this.setVisible(false);
+					setVisible(false);
+                    // setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 				} catch (IOException e1) {
-					JOptionPane.showMessageDialog(this, "Something went wrong");;
+                    Order_GUI panel = new Order_GUI();
+					JOptionPane.showMessageDialog(panel,"Something went wrong");
 				}
 				APP.System_User_Interface.Order_GUI.model.setRowCount(0);
                 APP.OrderManagement.Order.orderList=APP.OrderManagement.Order.loadItems(APP.System_User_Interface.Order_GUI.file);
@@ -221,7 +225,7 @@ class Orderpanel extends JFrame {
 		
 	}
 	
-// }
+}
     
     public void createAndShowGUI() {
 
