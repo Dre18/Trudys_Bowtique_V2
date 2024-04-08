@@ -174,7 +174,7 @@ class Orderpanel extends JFrame {
         resadd.setFont(new Font("Arial", Font.PLAIN, 15));
         resadd.setSize(250, 300);
 		resadd.setMargin(new InsetsUIResource(10,10,10,10));
-		resadd.setText("eg:\n Red_Polo_Shirts 5\n (Delete this example before typing)");
+		resadd.setText("eg:\n Red_Polo_Shirts 5\n (Delete this example before typing)  ");
         resadd.setLocation(180, 100);
 		
         d.add(resadd);
@@ -195,7 +195,7 @@ class Orderpanel extends JFrame {
         @Override 
 
     public void actionPerformed(ActionEvent e) {
-		if (e.getSource() ==Done){
+		if (e.getSource() == Done){
 			FileWriter f;
 			try {
 				f = new FileWriter(APP.System_User_Interface.Order_GUI.file, true);
@@ -211,8 +211,20 @@ class Orderpanel extends JFrame {
 					b.close();
 					f.close();
                     APP.OrderManagement.Order.getOrderList().add(o);
-					setVisible(false);
-                    // setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    // APP.System_User_Interface.Order_GUI.table.setVisible(false);
+                    // .dispose();
+                    // tname.setText("");
+                    // t_mob.setText("");
+                    // t_dline.setText("");
+                    // tadd.setText("");
+                    // t_Descrp.setText(""); 
+                    // t_cost.setText("");
+                    
+
+                    // resadd.setText("eg:\n Red_Polo_Shirts 5\n (Delete this example before typing)  ");
+                    // setVisible(true);
+
+
 
 				} catch (IOException e1) {
                     Order_GUI panel = new Order_GUI();
@@ -221,9 +233,17 @@ class Orderpanel extends JFrame {
 				APP.System_User_Interface.Order_GUI.model.setRowCount(0);
                 APP.OrderManagement.Order.orderList=APP.OrderManagement.Order.loadItems(APP.System_User_Interface.Order_GUI.file);
                 APP.System_User_Interface.Order_GUI.showTable( APP.OrderManagement.Order.orderList);
+                
 		}
 		
 	}
+
+
+
+    
+
+
+
 	
 }
     
@@ -231,7 +251,6 @@ class Orderpanel extends JFrame {
 
 
         Orderpanel gui = new Orderpanel();
-        // Secure_viewGUI gui = new Secure_viewGUI();
         JFrame frame = new JFrame("New Order");
         frame.getContentPane().add(gui);
         frame.pack(); 
@@ -255,7 +274,46 @@ class Orderpanel extends JFrame {
         }
 
     
-
+        private class Comp implements Comparator<OrdItem>
+        {
+            @Override
+            public int compare(OrdItem o1, OrdItem o2) {
+                return o1.getOrdnum()- (o2.getOrdnum());
+            }
+        }
+        private class CompD2 implements Comparator<OrdItem>
+        {
+        
+            @Override
+            public int compare(OrdItem o1, OrdItem o2) {
+                return o1.getStatus_2().compareTo(o2.getStatus_2());
+            }
+        }
+        private class CompD3 implements Comparator<OrdItem> 
+        {
+            @Override
+            public int compare(OrdItem o1, OrdItem o2) {
+                
+                SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+                Date date1;
+                Date date2;
+                int n=0;
+                
+                try {
+                        date1= f.parse(o1.getDeadline());
+                
+                        date2=f.parse(o2.getDeadline());
+                        n = (date1.compareTo((date2)));
+                    
+                } 
+             
+                catch (ParseException e) {
+                    e.printStackTrace();
+                }	
+                
+                return n;
+            }
+        }
 	
 
 

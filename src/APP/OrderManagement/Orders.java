@@ -586,9 +586,6 @@ public void actionPerformed(ActionEvent e) {
 		}
 	}
 	
-
-
-	
 	if (e.getSource()==sortByOrdNum){
 
 	Collections.sort(orderList, new Comp());
