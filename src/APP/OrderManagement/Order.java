@@ -1,6 +1,8 @@
 package APP.OrderManagement;
 
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -24,16 +26,26 @@ import javax.swing.JTable;
 
 import org.w3c.dom.events.MouseEvent;
 
-public class Order {
-
+public class Order implements ActionListener{
     private static final String FILE_NAME = "OrderList.dat";
     public static ArrayList<OrdItem> orderList;
      private JTable table;
 
     public Order() {
         orderList = loadItems(FILE_NAME);
-         
+        table.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                Point point = ((Object) e).getPoint();
+                int row = table.rowAtPoint(point);
+                String str = table.getValueAt(row, 0).toString();
+
+                setText(DisplayDetails(FILE_NAME, str));
+
+            }
+        }); 
     }
+         
+    // }
 
     public static ArrayList<OrdItem> getOrderList() {
         return orderList;
@@ -84,7 +96,7 @@ public class Order {
         writeToFile(orderList);
     }
 
-    public void removeRecord(String val){
+    public static void removeRecord(String val){
         String tempfile = "temp.dat";
         String currentline;
         File oldfile= new File(FILE_NAME);
@@ -181,6 +193,92 @@ public class Order {
         }
         return str;
     }
+
     
+    
+// }
+
+
+
+
+private class Comp implements Comparator<OrdItem>
+{
+    @Override
+    public int compare(OrdItem o1, OrdItem o2) {
+        return o1.getOrdnum()- (o2.getOrdnum());
+    }
+}
+private class CompD2 implements Comparator<OrdItem>
+{
+
+    @Override
+    public int compare(OrdItem o1, OrdItem o2) {
+        return o1.getStatus_2().compareTo(o2.getStatus_2());
+    }
+}
+private class CompD3 implements Comparator<OrdItem> 
+{
+@Override
+public int compare(OrdItem o1, OrdItem o2) {
+    
+    SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+    Date date1;
+    Date date2;
+    int n=0;
+    
+    try {
+            date1= f.parse(o1.getDeadline());
+    
+            date2=f.parse(o2.getDeadline());
+            n = (date1.compareTo((date2)));
+        
+    } 
+ 
+    catch (ParseException e) {
+        e.printStackTrace();
+    }	
+    
+    return n;
+}
+
+}
+private class sortRecord implements ActionListener
+{
+@Override 
+public void actionPerformed(ActionEvent e) {
+
+    if (e.getSource()==APP.System_User_Interface.Order_GUI.sortByOrdNum){
+
+        Collections.sort(APP.OrderManagement.Order.orderList, new Comp());
+        APP.OrderManagement.Orders.model.setRowCount(0);
+        APP.System_User_Interface.Order_GUI.showTable(APP.OrderManagement.Order.orderList);
+    }  
+    
+        if (e.getSource()==APP.System_User_Interface.Order_GUI.sortByDeadline){
+            Collections.sort(APP.System_User_Interface.Order_GUI.orderList, new CompD3());
+            APP.System_User_Interface.Order_GUI.model.setRowCount(0);
+            APP.System_User_Interface.Order_GUI.showTable(APP.System_User_Interface.Order_GUI.orderList);
+            
+    
+        }
+        if (e.getSource()==APP.System_User_Interface.Order_GUI.sortByCompleted){
+            Collections.sort(APP.System_User_Interface.Order_GUI.orderList, new CompD2());
+            APP.System_User_Interface.Order_GUI.model.setRowCount(0);
+            APP.System_User_Interface.Order_GUI.showTable(APP.System_User_Interface.Order_GUI.orderList);
+        }
+        
+        if (e.getSource()==APP.System_User_Interface.Order_GUI.sortByIncomplete){
+            Collections.reverse(APP.System_User_Interface.Order_GUI.orderList);
+            APP.System_User_Interface.Order_GUI.model.setRowCount(0);
+            APP.System_User_Interface.Order_GUI.showTable(APP.System_User_Interface.Order_GUI.orderList);
+        }
+
+    }  
+}
+@Override
+public void actionPerformed(ActionEvent e) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+} 
 }
 

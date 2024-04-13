@@ -176,6 +176,8 @@ class Orderpanel extends JFrame {
 		resadd.setMargin(new InsetsUIResource(10,10,10,10));
 		resadd.setText("eg:\n Red_Polo_Shirts 5\n (Delete this example before typing)  ");
         resadd.setLocation(180, 100);
+
+        // APP.System_User_Interface.Order_GUI.sortRecord.addActionListener(new sortRecord());
 		
         d.add(resadd);
          
@@ -212,7 +214,7 @@ class Orderpanel extends JFrame {
 					f.close();
                     APP.OrderManagement.Order.getOrderList().add(o);
                     // APP.System_User_Interface.Order_GUI.table.setVisible(false);
-                    // .dispose();
+                    dispose();
                     // tname.setText("");
                     // t_mob.setText("");
                     // t_dline.setText("");
@@ -235,89 +237,13 @@ class Orderpanel extends JFrame {
                 APP.System_User_Interface.Order_GUI.showTable( APP.OrderManagement.Order.orderList);
                 
 		}
-		
-	}
-
-
+  
 
     
-
-
-
-	
 }
-    
-    public void createAndShowGUI() {
-
-
-        Orderpanel gui = new Orderpanel();
-        JFrame frame = new JFrame("New Order");
-        frame.getContentPane().add(gui);
-        frame.pack(); 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
-        int width = size.width;
-        int height = size.height;
-        frame.setSize(width, height);
-        frame.setLocationRelativeTo(null);  
-        setLayout(null);  
-     
-        }
-
-    public static String getDescrp() 
-    {
-    return t_Descrp.getText();
-    }
-
-    public String getRStock() {
-        return resadd.getText();
-        }
-
-    
-        private class Comp implements Comparator<OrdItem>
-        {
-            @Override
-            public int compare(OrdItem o1, OrdItem o2) {
-                return o1.getOrdnum()- (o2.getOrdnum());
-            }
-        }
-        private class CompD2 implements Comparator<OrdItem>
-        {
-        
-            @Override
-            public int compare(OrdItem o1, OrdItem o2) {
-                return o1.getStatus_2().compareTo(o2.getStatus_2());
-            }
-        }
-        private class CompD3 implements Comparator<OrdItem> 
-        {
-            @Override
-            public int compare(OrdItem o1, OrdItem o2) {
-                
-                SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
-                Date date1;
-                Date date2;
-                int n=0;
-                
-                try {
-                        date1= f.parse(o1.getDeadline());
-                
-                        date2=f.parse(o2.getDeadline());
-                        n = (date1.compareTo((date2)));
-                    
-                } 
-             
-                catch (ParseException e) {
-                    e.printStackTrace();
-                }	
-                
-                return n;
-            }
-        }
-	
 
 
 
 
-
+}
 }

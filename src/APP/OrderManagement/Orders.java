@@ -35,7 +35,7 @@ import java.awt.event.*;
 
 
 public class Orders extends JFrame implements ActionListener{
-    private DefaultTableModel model;
+    public static DefaultTableModel model;
     private JTable table;
     private JScrollPane scrollPane;
     private JPanel toppanel;
@@ -43,7 +43,7 @@ public class Orders extends JFrame implements ActionListener{
     private JTextArea detailspanel;
     private JPanel bottompanel;
     private static final String file= "OrderList.dat";
-    private ArrayList<OrdItem> orderList;
+    public static ArrayList<OrdItem> orderList;
     private JMenuBar optionBar;
 	private String details;
 	JMenuItem addRecord;
@@ -55,11 +55,11 @@ public class Orders extends JFrame implements ActionListener{
 	JMenuItem delRecord;
 	JMenu Options;
     JMenu sortRecord;
-    JMenuItem sortByLastName;
-	JMenuItem sortByOrdNum;
-	JMenuItem sortByDeadline;
-	JMenuItem sortByCompleted;
-	JMenuItem sortByIncomplete;
+    public static JMenuItem sortByLastName;
+	public static JMenuItem sortByOrdNum;
+	public static JMenuItem sortByDeadline;
+	public static JMenuItem sortByCompleted;
+	public static JMenuItem sortByIncomplete;
     public Orders() {
         
 

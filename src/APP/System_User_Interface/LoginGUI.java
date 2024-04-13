@@ -74,6 +74,7 @@ public class LoginGUI extends JPanel{
     
     showPassword.setBackground(Color.lightGray);
     loginButton.addActionListener(new LoginButtonListener());
+    showPassword.addActionListener(new showpassword());
   }
 
   public JButton getLoginButton() {
@@ -136,6 +137,9 @@ public class LoginGUI extends JPanel{
     private class LoginButtonListener implements ActionListener {
       @Override
       public void actionPerformed(ActionEvent e) {
+
+       
+
      
         if (performLogin()) {
           // Login successful, show secure view or perform other actions
@@ -143,11 +147,28 @@ public class LoginGUI extends JPanel{
           secure_viewGUI.createAndShowGUI();
           LoginGUI loginGUI = new LoginGUI(userAuth);
           // loginGUI.setDefaultCloseOperation(EXIT_ON_CLOSE);
-      } else {
+      } 
+      else {
           showError("Invalid username or password!");
       }
   }
       
+}
+
+private class showpassword implements ActionListener {
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    if (e.getSource() == showPassword) {
+      if (showPassword.isSelected()) {
+          passwordField.setEchoChar((char) 0);
+      } else {
+          passwordField.setEchoChar('*');
+      }
+
+}
+  
+}
+
 }
 }
 
