@@ -1,5 +1,6 @@
 package APP.OrderManagement;
 
+import java.awt.event.*;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -33,16 +34,7 @@ public class Order implements ActionListener{
 
     public Order() {
         orderList = loadItems(FILE_NAME);
-        table.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                Point point = ((Object) e).getPoint();
-                int row = table.rowAtPoint(point);
-                String str = table.getValueAt(row, 0).toString();
-
-                setText(DisplayDetails(FILE_NAME, str));
-
-            }
-        }); 
+         
     }
          
     // }

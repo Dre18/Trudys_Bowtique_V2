@@ -44,7 +44,7 @@ public class Order_GUI extends JFrame{
     private JScrollPane scrollPane;
     private JPanel toppanel;
     private JFrame ordWindow;
-    private JTextArea detailspanel;
+    public static JTextArea detailspanel;
     private JPanel bottompanel;
     public static final String file = "OrderList.dat";
     public static ArrayList<OrdItem> orderList;
@@ -67,11 +67,6 @@ public class Order_GUI extends JFrame{
 	public static JMenuItem sortByIncomplete;
 
     public Order_GUI() {
-        
-
-
-// 
-
 
         toppanel=new JPanel();  
         ordWindow = new JFrame();
@@ -87,13 +82,13 @@ public class Order_GUI extends JFrame{
         
         	sortRecord = new JMenu("Sort By ");
             sortByOrdNum = new JMenuItem("Order Number");
-			// sortByOrdNum.addActionListener(this);
+            sortByOrdNum.addActionListener(new sortByOrdNum()); // Added action listener
             sortByDeadline = new JMenuItem("Deadline");
-			// sortByDeadline.addActionListener(this);
+			sortByDeadline.addActionListener(new sortByDeadline());
             sortByCompleted = new JMenuItem("Completed Order(s)");
-			// sortByCompleted.addActionListener(this);
+			sortByCompleted.addActionListener(new sortByCompleted()); 
             sortByIncomplete = new JMenuItem("Incomplete Order(s)");
-			// sortByIncomplete.addActionListener(this);
+			sortByIncomplete.addActionListener(new sortByIncompleted());
 
             savetable = new JMenuItem("Save table changes");
 			// savetable.addActionListener(this);
@@ -127,8 +122,8 @@ public class Order_GUI extends JFrame{
             addRecord.addActionListener(new addNewRecord());
 			// editRecord.addActionListener(new editRecord());
 			delRecord.addActionListener(new deleteRecord());
-            savetable.addActionListener(new savetable());
-            sortRecord.addActionListener(new sortRecord());
+            // savetable.addActionListener(new savetable());
+            // sortRecord.addActionListener(new sortRecord());
             // sortByOrdNum.addActionListener(this);
             
 
@@ -223,303 +218,163 @@ public class Order_GUI extends JFrame{
      
         }
 
-        public int createJOptionpane(String str){
-            int n = JOptionPane.showConfirmDialog(this, str,"Confirmation",JOptionPane.YES_NO_OPTION);
-            return n;
-        }
-          
-
-        public static void showTable(ArrayList<OrdItem> orderList) {
-            if (orderList.size() > 0) {
-                for (OrdItem i : orderList) {
-                    {
-                        addToTable(i);
-                    }
-                }
-            }
-    
-        }
-
-        public static void addToTable(OrdItem i) {
-            String[] item = { ""+i.getOrdnum(),  i.getName(), i.getStatus_2(), i.getDeadline()};
-            model.addRow(item);
-        }
-
-        public ArrayList<OrdItem> loadItems(String pfile){
-            Scanner pscan = null;
-            ArrayList<OrdItem> orderList = new ArrayList<OrdItem>();
-    
-            try {
-                pscan = new Scanner(new File(pfile));
-                while (pscan.hasNext()) {
-                    String data=pscan.nextLine();
-                    String[] nextLine = data.split(" ");
-                    int ordnum = Integer.parseInt(nextLine[0]);
-                    String name = nextLine[1].replace("_"," ");
-                    String status = nextLine[2];
-                    String date = nextLine[3];
-                    String phonenum=nextLine[4];
-                    String addr = nextLine[5].replace("_"," ");
-                    String descrip = nextLine[6].replace("_"," ");
-                    String cost = nextLine[7];                
-                OrdItem O = new OrdItem(ordnum, name, addr, date, status,descrip,  phonenum, cost) ;
-                orderList.add(O);
-                    
-    
-                }
-    
-                pscan.close();
-            } catch (IOException e) {
-                JOptionPane.showMessageDialog(this, "System Error Restart application");
-            }
-            return orderList;
-        }
-
-        private class sortRecord implements ActionListener
-        {
-        @Override 
-        public void actionPerformed(ActionEvent e) {
-                if (e.getSource()==sortByOrdNum){
-                    System.out.println("Sort by NUM");
-
-                    Collections.sort(orderList, new Comp());
-                    model.setRowCount(0);
-                    showTable(orderList);
-                    loadItems(file);
-                } 
-                if (e.getSource()==sortByDeadline){
-                    Collections.sort(orderList, new CompD3());
-                    model.setRowCount(0);
-                    
-                    loadItems(file);
-                    showTable(orderList);
-            
-                }
-            }
-        }
+    public int createJOptionpane(String str){
+        int n = JOptionPane.showConfirmDialog(this, str,"Confirmation",JOptionPane.YES_NO_OPTION);
+        return n;
+    }
         
-        private class addNewRecord implements ActionListener{
-            @Override
-            public void actionPerformed(ActionEvent e) {
-               APP.System_User_Interface.Orderpanel newOrder  = new Orderpanel();
-          
-            
+    public static void showTable(ArrayList<OrdItem> orderList) {
+        if (orderList.size() > 0) {
+            for (OrdItem i : orderList) {
+                {
+                    addToTable(i);
+                }
             }
-
-            
         }
 
-        private class deleteRecord implements ActionListener{
-            @Override
-            public void actionPerformed(ActionEvent e) {
-               if (e.getSource()==delRecord){
-                        int row = table.getSelectedRow();
-                        String val ="";
-                    
+    }
+
+    public static void addToTable(OrdItem i) {
+        String[] item = { ""+i.getOrdnum(),  i.getName(), i.getStatus_2(), i.getDeadline()};
+        model.addRow(item);
+    }
+
+    public ArrayList<OrdItem> loadItems(String pfile){
+        Scanner pscan = null;
+        ArrayList<OrdItem> orderList = new ArrayList<OrdItem>();
+
+        try {
+            pscan = new Scanner(new File(pfile));
+            while (pscan.hasNext()) {
+                String data=pscan.nextLine();
+                String[] nextLine = data.split(" ");
+                int ordnum = Integer.parseInt(nextLine[0]);
+                String name = nextLine[1].replace("_"," ");
+                String status = nextLine[2];
+                String date = nextLine[3];
+                String phonenum=nextLine[4];
+                String addr = nextLine[5].replace("_"," ");
+                String descrip = nextLine[6].replace("_"," ");
+                String cost = nextLine[7];                
+            OrdItem O = new OrdItem(ordnum, name, addr, date, status,descrip,  phonenum, cost) ;
+            orderList.add(O);
                 
-                       if (createJOptionpane("Are you sure you want to delete this item")==0){
-                            for (OrdItem i : orderList) {
-                                if (i.getOrdnum()==(Integer.parseInt(table.getValueAt(row, 0).toString()))){
-                                    val=""+i.getOrdnum();
-                                    APP.OrderManagement.Order.removeRecord(val);
-                                    orderList.remove(i);
-                                    model.setRowCount(0);
-                                    showTable(orderList);
-                                    break;
-                        
-                                }   
-                            }
-                        }
-                
-                    }
-                    
-                 
-          
-            
+
             }
+
+            pscan.close();
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "System Error Restart application");
+        }
+        return orderList;
+    }
+
+    private class sortByDeadline implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+        Collections.sort(orderList, new Comparator<OrdItem>() {
+            @Override
+            public int compare(OrdItem o1, OrdItem o2) {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                Date d1 = sdf.parse(o1.getDeadline());
+                Date d2 = sdf.parse(o2.getDeadline());
+                return d1.compareTo(d2);
+            } catch (ParseException ex) {
+                ex.printStackTrace();
+                return 0; // Handle parsing exceptions gracefully
+            }
+            }
+        });
+        model.setRowCount(0);
+        showTable(orderList);
+        }
+    }
+
+    private class sortByOrdNum implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+        Collections.sort(orderList, new Comp() {
+        });
+        model.setRowCount(0);
+        showTable(orderList); // Update the table model with the sorted data
+        }
+    }
+
+    private class sortByCompleted implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+        Collections.sort(orderList, new CompD2() {
+        });
+        model.setRowCount(0);
+        showTable(orderList); // Update the table model with the sorted data
+        }
+    }
+    
+    private class sortByIncompleted implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+        Collections.reverse(orderList);
+        model.setRowCount(0);
+        showTable(orderList); // Update the table model with the sorted data
+        }
+    }
+
+    private class Comp implements Comparator<OrdItem>
+    {
+        @Override
+        public int compare(OrdItem o1, OrdItem o2) {
+            return o1.getOrdnum()- (o2.getOrdnum());
+        }
+    }
+
+    private class CompD2 implements Comparator<OrdItem>
+        {
+
+            @Override
+            public int compare(OrdItem o1, OrdItem o2) {
+                return o1.getStatus_2().compareTo(o2.getStatus_2());
+            }
+        }
+
+    private class addNewRecord implements ActionListener{
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        APP.System_User_Interface.Orderpanel newOrder  = new Orderpanel();
+    
+    }    
+}
+
+    private class deleteRecord implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource()==delRecord){
+                    int row = table.getSelectedRow();
+                    String val ="";
+                
             
-        } 
-
-private class Comp implements Comparator<OrdItem>
-{
-    @Override
-    public int compare(OrdItem o1, OrdItem o2) {
-        return o1.getOrdnum()- (o2.getOrdnum());
-    }
-}
-private class CompD2 implements Comparator<OrdItem>
-{
-
-    @Override
-    public int compare(OrdItem o1, OrdItem o2) {
-        return o1.getStatus_2().compareTo(o2.getStatus_2());
-    }
-}
-private class CompD3 implements Comparator<OrdItem> 
-{
-@Override
-public int compare(OrdItem o1, OrdItem o2) {
-    
-    SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
-    Date date1;
-    Date date2;
-    int n=0;
-    
-    try {
-            date1= f.parse(o1.getDeadline());
-    
-            date2=f.parse(o2.getDeadline());
-            n = (date1.compareTo((date2)));
+                    if (createJOptionpane("Are you sure you want to delete this item")==0){
+                        for (OrdItem i : orderList) {
+                            if (i.getOrdnum()==(Integer.parseInt(table.getValueAt(row, 0).toString()))){
+                                val=""+i.getOrdnum();
+                                APP.OrderManagement.Order.removeRecord(val);
+                                orderList.remove(i);
+                                model.setRowCount(0);
+                                showTable(orderList);
+                                break;
+                    
+                            }   
+                        }
+                    }
+            
+                }
+                
+                
+        
+        
+        }
         
     } 
- 
-    catch (ParseException e) {
-        e.printStackTrace();
-    }	
-    
-    return n;
-}
-
-}
-
-        private class savetable implements ActionListener{
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            if (e.getSource()==savetable){
-                if  ( table.isEditing() )
-                {
-                    String val;
-                    int row = table.getEditingRow();
-                    int col = table.getEditingColumn();
-                    table.getCellEditor(row, col).stopCellEditing();
-                    int count= table.getRowCount();
-                    int num=0;
-                    for (OrdItem i: orderList){
-                    
-                        val= table.getValueAt(row,col).toString();
-                        String tempfile = "temp.dat";
-                        String currentline;
-                        File oldfile= new File(file);
-                        File newfile = new File(tempfile);
-                        try {
-                            FileWriter fw = new FileWriter(tempfile, true);
-                            BufferedWriter bw = new BufferedWriter(fw);
-                            PrintWriter pw = new PrintWriter(bw);
-            
-                            FileReader fr = new FileReader(file);
-                            BufferedReader br = new BufferedReader(fr);
-                            
-                            while ((currentline =br.readLine()) != null) {
-                                String[] data = currentline.split(" ");
-                                
-                                if (!(num==row)) {
-                                     pw.println(currentline);
-                                }
-                                else{
-                                    data[col]=val;
-                                    String txt= data[0]+" "+data[1].replace(" ", "_")+ " "+data[2]+ " "+data[3]+" "+data[4]+" "+data[5]+" "+ data[6]+" "+data[7];
-                                    pw.println(txt);
-                                }
-                                num++;
-                                
-                            }
-                            pw.flush();
-                            pw.close();
-                            br.close();
-                            fr.close();
-                            fw.close();
-                            bw.close();
-            
-                            oldfile.delete();
-                            File temp = new File(file);
-                            newfile.renameTo(temp);
-                        }
-            
-                        catch (IOException IO) {
-                        }
-                    }
-                    
-                }
-            }
-         
-            
-            
-            // }
-        // }
-
-        // private class sortRecord implements ActionListener{
-        //     @Override
-            // public void actionPerformed(ActionEvent e) {
-                if (e.getSource()==sortByOrdNum){
-        
-                    Collections.sort(orderList, new Comp());
-                    model.setRowCount(0);
-                    showTable(orderList);
-                }  
-                
-                    if (e.getSource()==sortByDeadline){
-                        Collections.sort(orderList, new CompD3());
-                        model.setRowCount(0);
-                        showTable(orderList);
-                        
-                
-                    }
-                    if (e.getSource()==sortByCompleted){
-                        Collections.sort(orderList, new CompD2());
-                        model.setRowCount(0);
-                        showTable(orderList);
-                    }
-                    
-                    if (e.getSource()==sortByIncomplete){
-                        Collections.reverse(orderList);
-                        model.setRowCount(0);
-                        showTable(orderList);
-                    }
-            
-            }
-        }
-       
-       
-    // private class Comp implements Comparator<OrdItem>
-    // {
-    //     @Override
-    //     public int compare(OrdItem o1, OrdItem o2) {
-    //         return o1.getOrdnum()- (o2.getOrdnum());
-    //     }
-    // }
-    // private class CompD2 implements Comparator<OrdItem>
-    // {
-
-    //     @Override
-    //     public int compare(OrdItem o1, OrdItem o2) {
-    //         return o1.getStatus_2().compareTo(o2.getStatus_2());
-    //     }
-    // }
-    // private class CompD3 implements Comparator<OrdItem> 
-    // {
-    // @Override
-    // public int compare(OrdItem o1, OrdItem o2) {
-		
-	// 	SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
-	// 	Date date1;
-	// 	Date date2;
-	// 	int n=0;
-		
-	// 	try {
-	// 			date1= f.parse(o1.getDeadline());
-		
-	// 		    date2=f.parse(o2.getDeadline());
-	// 			n = (date1.compareTo((date2)));
-			
-	// 	} 
-	 
-	// 	catch (ParseException e) {
-	// 		e.printStackTrace();
-	// 	}	
-		
-	// 	return n;
-    // }
-// }
 
     }
 
