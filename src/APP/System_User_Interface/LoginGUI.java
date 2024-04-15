@@ -25,7 +25,7 @@ public class LoginGUI extends JPanel{
   private JTextField usernameField;
   private JPasswordField passwordField;
   private JButton loginButton;
-  private JButton DoneButton;
+  private JButton CloseButton;
   private JCheckBox showPassword;
 
   public LoginGUI(UserAuth userAuth) {
@@ -37,7 +37,7 @@ public class LoginGUI extends JPanel{
     usernameField = new JTextField();
     passwordField = new JPasswordField();
     loginButton = new JButton("LOGIN");
-    DoneButton = new JButton("Done");
+    CloseButton = new JButton("Close");
     showPassword = new JCheckBox("Show Password");
 
     // Layout components (replace with your preferred layout manager)
@@ -55,34 +55,35 @@ public class LoginGUI extends JPanel{
     add(passwordField);
     add(showPassword);
     add(loginButton);
-    add(DoneButton);
+    add(CloseButton);
     // ... (add other components with their bounds)
     usernameField.setBounds(150, 150, 150, 30);
     passwordField.setBounds(150, 220, 150, 30);
     showPassword.setBounds(150, 250, 150, 30);
     loginButton.setBounds(50, 300, 100, 30);
-    DoneButton.setBounds(200, 300, 100, 30);
+    CloseButton.setBounds(200, 300, 100, 30);
 
-    // Color and event handling
+    
     Color panelColor = new Color(123, 154, 239);
     setBackground(panelColor);
-    // ... (add components to the panel)
+  
     
     loginButton.setBackground(Color.lightGray);
    
-    DoneButton.setBackground(Color.lightGray);
+    CloseButton.setBackground(Color.lightGray);
     
     showPassword.setBackground(Color.lightGray);
     loginButton.addActionListener(new LoginButtonListener());
     showPassword.addActionListener(new showpassword());
+    CloseButton.addActionListener(new CloseButtonListener());
   }
 
   public JButton getLoginButton() {
     return loginButton;
   }
 
-  public JButton getDoneButton() {
-    return DoneButton;
+  public JButton getCloseButton() {
+    return CloseButton;
   }
 
   public JCheckBox getshowPassword() {
@@ -154,6 +155,15 @@ public class LoginGUI extends JPanel{
   }
       
 }
+
+
+private class CloseButtonListener implements ActionListener {
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    System.exit(0);
+  }
+}
+
 
 private class showpassword implements ActionListener {
   @Override

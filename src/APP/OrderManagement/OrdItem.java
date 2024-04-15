@@ -17,7 +17,7 @@ public class OrdItem{
        private Date date;
        private String deadline;
         private String status_2;
-        // private String status;
+        private String stat;
         
         
 
@@ -54,11 +54,10 @@ public class OrdItem{
         }
 
 
-        // public void setStatus(String status) {
-        //     // Validate status (optional)
-        //     // You can add logic to check if the provided status is valid (e.g., from a predefined list of allowed statuses)
-        //     this.status = status;
-        // }
+        public void setStatus(String stat) {
+            
+            this.status_2 = stat;
+        }
 
 
         public String getDescrp()

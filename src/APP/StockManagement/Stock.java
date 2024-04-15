@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class Stock {
 
-    private static final String FILE_NAME = "StockList.dat";
+    private static final String FILE_NAME = "StockList.csv";
     private ArrayList<Item> itemList;
     private DefaultTableModel tableModel;
     private JTable table;

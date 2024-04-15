@@ -41,7 +41,7 @@ import APP.OrderManagement.Order;
 
 
 
-class Orderpanel extends JFrame {
+class Order_Table_GUI extends JFrame {
      
     // Components of the Form
     private Container a;
@@ -63,7 +63,7 @@ class Orderpanel extends JFrame {
     public JTextArea resadd;
  
 
-    public Orderpanel(){
+    public Order_Table_GUI(){
         setTitle("New Order Form");
         setBounds(300, 10, 900, 900);
         setResizable(false);
@@ -192,10 +192,8 @@ class Orderpanel extends JFrame {
     }
 
 
-    private class DoneButton implements ActionListener
-    {
-        @Override 
-
+    private class DoneButton implements ActionListener{
+    @Override 
     public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == Done){
 			FileWriter f;
@@ -242,8 +240,7 @@ class Orderpanel extends JFrame {
     
 }
 
-
-
-
 }
+
+
 }

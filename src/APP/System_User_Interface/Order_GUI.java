@@ -36,9 +36,6 @@ import java.awt.event.*;
 
 public class Order_GUI extends JFrame{
 
-
-
-
     public static DefaultTableModel model;
     public static JTable table;
     private JScrollPane scrollPane;
@@ -46,11 +43,11 @@ public class Order_GUI extends JFrame{
     private JFrame ordWindow;
     public static JTextArea detailspanel;
     private JPanel bottompanel;
-    public static final String file = "OrderList.dat";
+    public static final String file = "OrderList.csv";
     public static ArrayList<OrdItem> orderList;
     private JMenuBar optionBar;
 	private String details;
-    private Orderpanel newOrder;
+    private Order_Table_GUI newOrder;
 	JMenuItem addRecord;
 	JMenu editRecord;
 	JMenuItem savetable;
@@ -80,89 +77,89 @@ public class Order_GUI extends JFrame{
         detailspanel.setBackground(Color.yellow); 
         optionBar = new JMenuBar();   
         
-        	sortRecord = new JMenu("Sort By ");
-            sortByOrdNum = new JMenuItem("Order Number");
-            sortByOrdNum.addActionListener(new sortByOrdNum()); // Added action listener
-            sortByDeadline = new JMenuItem("Deadline");
-			sortByDeadline.addActionListener(new sortByDeadline());
-            sortByCompleted = new JMenuItem("Completed Order(s)");
-			sortByCompleted.addActionListener(new sortByCompleted()); 
-            sortByIncomplete = new JMenuItem("Incomplete Order(s)");
-			sortByIncomplete.addActionListener(new sortByIncompleted());
+        sortRecord = new JMenu("Sort By ");
+        sortByOrdNum = new JMenuItem("Order Number");
+        sortByOrdNum.addActionListener(new sortByOrdNum()); // Added action listener
+        sortByDeadline = new JMenuItem("Deadline");
+        sortByDeadline.addActionListener(new sortByDeadline());
+        sortByCompleted = new JMenuItem("Completed Order(s)");
+        sortByCompleted.addActionListener(new sortByCompleted()); 
+        sortByIncomplete = new JMenuItem("Incomplete Order(s)");
+        sortByIncomplete.addActionListener(new sortByIncompleted());
 
-            savetable = new JMenuItem("Save table changes");
-			// savetable.addActionListener(this);
-			editDescrp = new JMenuItem("Edit Order Description");
-			// editDescrp.addActionListener(this);
-			editPhonenum = new JMenuItem("Edit Phone number");
-			// editPhonenum.addActionListener(this);
-			editCost = new JMenuItem("Edit the cost of an order");
-			// editCost.addActionListener(this);
+        savetable = new JMenuItem("Save table changes");
+        // savetable.addActionListener(new savetable());
+        editDescrp = new JMenuItem("Edit Order Description");
+        // editDescrp.addActionListener(this);
+        editPhonenum = new JMenuItem("Edit Phone number");
+        // editPhonenum.addActionListener(this);
+        editCost = new JMenuItem("Edit the cost of an order");
+        // editCost.addActionListener(this);
 
 
-			sortRecord.add(sortByOrdNum);
-			sortRecord.add(sortByDeadline);
-			sortRecord.add(sortByCompleted);
-			sortRecord.add(sortByIncomplete);
-			Options = new JMenu("Option");
-			addRecord = new JMenuItem("New Order");
-			editRecord = new JMenu("Edit Order");
-            editRecord.add(savetable);
-            editRecord.add(editDescrp);
-            editRecord.add(editPhonenum);
-            editRecord.add(editCost);
-			delRecord = new JMenuItem("Remove Order");
-        	Options.add(addRecord);
-			Options.add(editRecord);
-			Options.add(delRecord);
-            optionBar.add(Options);
-			optionBar.add(sortRecord);
+        sortRecord.add(sortByOrdNum);
+        sortRecord.add(sortByDeadline);
+        sortRecord.add(sortByCompleted);
+        sortRecord.add(sortByIncomplete);
+        Options = new JMenu("Option");
+        addRecord = new JMenuItem("New Order");
+        editRecord = new JMenu("Edit Order");
+        editRecord.add(savetable);
+        editRecord.add(editDescrp);
+        editRecord.add(editPhonenum);
+        editRecord.add(editCost);
+        delRecord = new JMenuItem("Remove Order");
+        Options.add(addRecord);
+        Options.add(editRecord);
+        Options.add(delRecord);
+        optionBar.add(Options);
+        optionBar.add(sortRecord);
 
-			
-            addRecord.addActionListener(new addNewRecord());
-			// editRecord.addActionListener(new editRecord());
-			delRecord.addActionListener(new deleteRecord());
-            // savetable.addActionListener(new savetable());
-            // sortRecord.addActionListener(new sortRecord());
-            // sortByOrdNum.addActionListener(this);
+        
+        addRecord.addActionListener(new addNewRecord());
+        // editRecord.addActionListener(new editRecord());
+        delRecord.addActionListener(new deleteRecord());
+        // savetable.addActionListener(new savetable());
+        // sortRecord.addActionListener(new sortRecord());
+        // sortByOrdNum.addActionListener(this);
+        
+
+        this.setJMenuBar(optionBar);
+        this.add(toppanel, BorderLayout.CENTER); 
             
+        Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
+        int width = size.width;
+        int height = size.height;
+        this.setSize(width, height);
+        this.setLocationRelativeTo(null);  
+        this.setVisible(true);
+        orderList = loadItems(file);
+        String[] columnNames = { "Order No.", "Customer's Name", "Status of Order", "DeadLine" };
+        model = new DefaultTableModel(columnNames, 0);
+        table = new JTable(model);
+        showTable(orderList);
+        table.setPreferredScrollableViewportSize(new Dimension(500, orderList.size() * 15 + 50));
+        table.setFillsViewportHeight(true);
+        scrollPane = new JScrollPane(table);
+        toppanel.add(scrollPane);
+        toppanel.add(detailspanel); 
+        detailspanel.setMargin(new InsetsUIResource(20, 20, 20, 20));
+        detailspanel.setFont(new Font("Arial", Font.PLAIN, 20));
+        detailspanel.setBackground(Color.WHITE);
+        detailspanel.setText("Click on an order to see its details displayed here.");
+        detailspanel.setEditable(false);
 
-            this.setJMenuBar(optionBar);
-            this.add(toppanel, BorderLayout.CENTER); 
-               
-            Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
-            int width = size.width;
-            int height = size.height;
-            this.setSize(width, height);
-            this.setLocationRelativeTo(null);  
-            this.setVisible(true);
-            orderList = loadItems(file);
-            String[] columnNames = { "Order No.", "Customer's Name", "Status of Order", "DeadLine" };
-            model = new DefaultTableModel(columnNames, 0);
-            table = new JTable(model);
-            showTable(orderList);
-            table.setPreferredScrollableViewportSize(new Dimension(500, orderList.size() * 15 + 50));
-            table.setFillsViewportHeight(true);
-            scrollPane = new JScrollPane(table);
-            toppanel.add(scrollPane);
-            toppanel.add(detailspanel); 
-            detailspanel.setMargin(new InsetsUIResource(20, 20, 20, 20));
-            detailspanel.setFont(new Font("Arial", Font.PLAIN, 20));
-            detailspanel.setBackground(Color.WHITE);
-            detailspanel.setText("Click on an order to see its details displayed here.");
-            detailspanel.setEditable(false);
+        table.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                Point point = e.getPoint();
+                int row = table.rowAtPoint(point);
+                String str = table.getValueAt(row, 0).toString();
+                detailspanel.setText(DisplayDetails(file, str));
 
-            table.addMouseListener(new MouseAdapter() {
-                public void mouseClicked(MouseEvent e) {
-                    Point point = e.getPoint();
-                    int row = table.rowAtPoint(point);
-                    String str = table.getValueAt(row, 0).toString();
-                    detailspanel.setText(DisplayDetails(file, str));
-
-                }
-            });
-        } 
-        public String DisplayDetails(String pfile, String val){
+            }
+        });
+    } 
+    public String DisplayDetails(String pfile, String val){
 
         
 
@@ -197,9 +194,6 @@ public class Order_GUI extends JFrame{
             }
             return str;
         }
-    
-        
-
 
     public void createAndShowGUI() {
 
@@ -314,7 +308,7 @@ public class Order_GUI extends JFrame{
     private class sortByIncompleted implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-        Collections.reverse(orderList);
+        Collections.sort(orderList, new CompD3());
         model.setRowCount(0);
         showTable(orderList); // Update the table model with the sorted data
         }
@@ -337,10 +331,19 @@ public class Order_GUI extends JFrame{
             }
         }
 
+    private class CompD3 implements Comparator<OrdItem>
+        {
+
+            @Override
+            public int compare(OrdItem o1, OrdItem o2) {
+                return o2.getStatus_2().compareTo(o1.getStatus_2());
+            }
+        }
+
     private class addNewRecord implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
-        APP.System_User_Interface.Orderpanel newOrder  = new Orderpanel();
+        APP.System_User_Interface.Order_Table_GUI newOrder  = new Order_Table_GUI();
     
     }    
 }
@@ -376,7 +379,8 @@ public class Order_GUI extends JFrame{
         
     } 
 
-    }
+
+}
 
 
   
