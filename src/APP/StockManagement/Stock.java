@@ -3,6 +3,8 @@ package APP.StockManagement;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
+import APP.NotificationsandEvents.Notification;
+
 import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
@@ -52,18 +54,41 @@ public class Stock {
         return itemList;
     }
 
+    // public void reduceStock(String item_name, int c) {
+    //     for (Item i : ilist) {
+    //         if (item_name.equals(i.getItemName())) {
+    //             // String data = APP.System_User_Interface.Order_Table_GUI.resadd;
+    //             // int reduction = Integer.parseInt(data[1]);
+    //             int reduction = (res.isEmpty()) ? 0 : Integer.parseInt(res);
+    //             int newQuantity = i.getItemQuantity() - Math.max(c - reduction, 0);
+    //             i.changeQuantity(newQuantity);
+    //             break;
+    //         }
+    //     }
+    // }
+
+
     public void reduceStock(String item_name, int c) {
         for (Item i : ilist) {
-            if (item_name.equals(i.getItemName())) {
-                // String data = APP.System_User_Interface.Order_Table_GUI.resadd;
-                // int reduction = Integer.parseInt(data[1]);
-                int reduction = (res.isEmpty()) ? 0 : Integer.parseInt(res);
-                int newQuantity = i.getItemQuantity() - Math.max(c - reduction, 0);
-                i.changeQuantity(newQuantity);
-                break;
+          if (item_name.equals(i.getItemName())) {
+            int reduction = Integer.parseInt(res); // Assuming res is set elsewhere
+            int newQuantity = Math.max(i.getItemQuantity() - (c - reduction), 0);
+            i.changeQuantity(newQuantity);
+      
+            // Check stock level and trigger notification if low
+            if (newQuantity != reduction) {
+              APP.NotificationsandEvents.Notification notification = new Notification();
+              try {
+                notification.displayTray();
+              } catch (AWTException e) {
+                // Handle exception (e.g., notification not displayed)
+              }
             }
+            break;
+          }
         }
-    }
+      }
+
 
     public void addItem(String itemName, String quantityString) {
         try {

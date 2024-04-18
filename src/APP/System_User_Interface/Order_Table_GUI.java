@@ -38,6 +38,7 @@ import org.w3c.dom.events.MouseEvent;
 import APP.OrderManagement.OrdItem;
 import APP.System_User_Interface.Order_GUI;
 import APP.OrderManagement.Order;
+import APP.StockManagement.Stock;
 
 
 
@@ -205,6 +206,16 @@ class Order_Table_GUI extends JFrame {
 					OrdItem o = new OrdItem(tname.getText(), t_dline.getText(), tadd.getText(), t_Descrp.getText(), t_mob.getText(), t_cost.getText());
                     w.println(o.getOrdnum() + " " + o.getName().replace(" ", "_") + " " + o.getStatus_2() + " "
                             + o.getDeadline() + " " +o.getPhonenum()+" "+ o.getAddr().replace(" ", "_").replace("\n", "~") + " " + o.getOrdDescrip().replace(" ","_").replace("\n", "~") + " " + o.getCost());
+
+                    String resaddContent = resadd.getText();
+
+                    // Reduce stock using Stock class
+                    APP.StockManagement.Stock stock = new Stock();
+                    // Assuming item name and reduction amount are separated by space
+                    String[] resaddParts = resaddContent.split(" ");
+                    if (resaddParts.length == 2) {
+                        stock.reduceStock(resaddParts[0], Integer.parseInt(resaddParts[1]));
+                    }
                     
 					w.flush();
 					w.close();

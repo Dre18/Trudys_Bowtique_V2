@@ -1,5 +1,6 @@
 package APP.Monthly_Sales_Report;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
@@ -13,22 +14,22 @@ public class SalesReportGenerator {
         int count = 0;
         int numm = 0;
 
-		try (Scanner myreader = new Scanner(APP.OrderManagement.Order.FILE_NAME);
+		try (Scanner myreader = new Scanner(new FileReader(APP.OrderManagement.Order.FILE_NAME));
              FileWriter mywriter = new FileWriter(REPORT_FILE_PREFIX + numm + ".doc")) {
 
-				String l = "                   ********MONTHLY REPORT******* \n";
+				String l = "                   ********TRUDY'S BOWTIQUE******* \n                     ********SALES REPORT******* \n";
 				mywriter.write(l);
 			  while (myreader.hasNextLine()) {
 				  
 				  String [] mdata = myreader.nextLine().split(" ");
-				  String ordnum = mdata[1];
-				  String name = mdata[2].replace("_"," ");
-				  String status = mdata[3];
-				  String date = mdata[4];
-				  String phonenum = mdata[5];
-				  String addr =mdata[6].replace("_"," ").replace("~","\n\t    ");
-				  String descrip = mdata[7].replace("_"," ").replace("~","\n\t    ");
-				  String cost = mdata[8]; 
+				  String ordnum = mdata[0];
+				  String name = mdata[1].replace("_"," ");
+				  String status = mdata[2];
+				  String date = mdata[3];
+				  String phonenum = mdata[4];
+				  String addr =mdata[5].replace("_"," ").replace("~","\n\t    ");
+				  String descrip = mdata[6].replace("_"," ").replace("~","\n\t    ");
+				  String cost = mdata[7]; 
 				  
 					  count++;
 					  
