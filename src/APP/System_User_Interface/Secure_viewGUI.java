@@ -90,8 +90,9 @@ public class Secure_viewGUI extends JPanel {
             {
                try{
                 APP.Monthly_Sales_Report.SalesReportGenerator.getInfo();
-                // JOptionPane.showInputDialog(this, "Monthly Report Saved");
-                JOptionPane.showMessageDialog(null, this, "Monthly Report Saved", 0);
+                // JOptionPane.showMessageDialog(null, this, "Monthly Report Saved", 0);
+                // JJOptionPane.showMessageDialog(null, this, "Monthly Report Saved", 0);
+                JOptionPane.showMessageDialog(null, "Monthly Report Saved", "Success", JOptionPane.INFORMATION_MESSAGE); // Improved message dialog
 
                }
                catch (Exception n)

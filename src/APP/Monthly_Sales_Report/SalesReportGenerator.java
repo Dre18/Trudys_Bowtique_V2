@@ -3,22 +3,45 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 public class SalesReportGenerator {
 
     private static final String REPORT_FILE_PREFIX = "SalesReport";
+	// private static final long TIMESTAMP_UPDATE_INTERVAL = 10000; // Update timestamp every 10 seconds (in milliseconds)
+
+    private static int numm = 0;
+	static long timestamp = System.currentTimeMillis();
+
+
+	private static String generateUniqueFilename() {
+		return String.valueOf(timestamp);
+	  }
+
+	  public static String convertTimestampToDate(long timestamp) {
+		// Create a Date object from the timestamp
+		Date date = new Date(timestamp);
+	  
+		// Use a SimpleDateFormat to format the date in a desired format
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss"); // Adjust format as needed (e.g., "dd/MM/yyyy")
+	  
+		// Return the formatted date string
+		return formatter.format(date);
+	  }
 
     public static void getInfo() {
-        int totalCost2 = 0;
-        int count = 0;
-        int numm = 0;
+        int totalCost = 0;
+		int count = 0;
+		numm++;
+		long lastTimestampUpdate = System.currentTimeMillis(); // Initialize timestamp
 
 		try (Scanner myreader = new Scanner(new FileReader(APP.OrderManagement.Order.FILE_NAME));
-             FileWriter mywriter = new FileWriter(REPORT_FILE_PREFIX + numm + ".doc")) {
+             FileWriter mywriter = new FileWriter(REPORT_FILE_PREFIX + generateUniqueFilename() + ".doc")) {
 
-				String l = "                   ********TRUDY'S BOWTIQUE******* \n                     ********SALES REPORT******* \n";
-				mywriter.write(l);
+				String header = "                   ********TRUDY'S BOWTIQUE******* \n                     ********SALES REPORT******* \n";
+				mywriter.write(header);
 			  while (myreader.hasNextLine()) {
 				  
 				  String [] mdata = myreader.nextLine().split(" ");
@@ -44,14 +67,17 @@ public class SalesReportGenerator {
 					  // }
 					  
 					  // else{
-						  totalCost2 += cost2;
+						  totalCost += cost2;
 					  // }
 					  
-				  
+					//   if (System.currentTimeMillis() - lastTimestampUpdate >= TIMESTAMP_UPDATE_INTERVAL) {
+					// 	lastTimestampUpdate = System.currentTimeMillis();
+					// 	mywriter.write("\n******** Updated: " + convertTimestampToDate(lastTimestampUpdate) + " ********\n");
+					//   }
 				  
 				}
 				
-				mywriter.write("\nTotal Monthly Sale: " + totalCost2 + "\n" );
+				mywriter.write("\nTotal Monthly Sale: " + totalCost + "\n" );
 				  
 			  mywriter.flush();
 				myreader.close();
