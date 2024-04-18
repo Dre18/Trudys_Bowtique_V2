@@ -174,10 +174,10 @@ class Order_Table_GUI extends JFrame {
         resadd.setFont(new Font("Arial", Font.PLAIN, 15));
         resadd.setSize(250, 300);
 		resadd.setMargin(new InsetsUIResource(10,10,10,10));
-		resadd.setText("eg:\n Red_Polo_Shirts 5\n (Delete this example before typing)  ");
+		resadd.setText("eg:\n Red_Polo_Shirts 5\n (Delete this example before typing)  \n");
         resadd.setLocation(180, 100);
 
-        // APP.System_User_Interface.Order_GUI.sortRecord.addActionListener(new sortRecord());
+        
 		
         d.add(resadd);
          

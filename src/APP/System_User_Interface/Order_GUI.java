@@ -42,7 +42,7 @@ public class Order_GUI extends JFrame{
     private JPanel toppanel;
     private JFrame ordWindow;
     public static JTextArea detailspanel;
-    private JPanel bottompanel;
+    // private JPanel bottompanel;
     public static final String file = "OrderList.csv";
     public static ArrayList<OrdItem> orderList;
     private JMenuBar optionBar;
@@ -57,7 +57,7 @@ public class Order_GUI extends JFrame{
 	JMenuItem delRecord;
 	JMenu Options;
     public static JMenu sortRecord;
-    public static JMenuItem sortByLastName;
+    // public static JMenuItem sortByLastName;
 	public static JMenuItem sortByOrdNum;
 	public static JMenuItem sortByDeadline;
 	public static JMenuItem sortByCompleted;
@@ -67,7 +67,7 @@ public class Order_GUI extends JFrame{
 
         toppanel=new JPanel();  
         ordWindow = new JFrame();
-       	// ordWindow.setBackground(Color.pink);
+       	ordWindow.setBackground(Color.pink);
 
         toppanel.setBounds(0,0,1500,800);    
         

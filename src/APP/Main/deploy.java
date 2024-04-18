@@ -4,17 +4,19 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import APP.NotificationsandEvents.Notification;
 import APP.Security.UserAuth;
 import APP.System_User_Interface.LoginGUI;
 import APP.System_User_Interface.Sign_inGUI;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.Color;
+
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+
+import java.awt.*;
+import java.awt.TrayIcon.MessageType;
 
 /**
  *
@@ -32,8 +34,9 @@ public class deploy extends JPanel {
     
     /** 
      * @param args
+     * @throws AWTException 
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws AWTException {
 
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
@@ -62,6 +65,13 @@ public class deploy extends JPanel {
                
                 }
         });
+
+        if (SystemTray.isSupported()) {
+            APP.NotificationsandEvents.Notification td = new Notification();
+            td.displayTray();
+        } else {
+            System.err.println("System tray not supported!");
+        }
     }
 
    

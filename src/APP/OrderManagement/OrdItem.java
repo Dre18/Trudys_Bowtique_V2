@@ -40,7 +40,7 @@ public class OrdItem{
             this.date= new Date();
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
             this.deadline= deadline;
-            this.ordnum=1 + calcOrdernum("OrderList.dat");
+            this.ordnum=1 + calcOrdernum("OrderList.csv");
             this.name = name;
             this.addr=addr;
             this.ordDescrip=ordDescrip;

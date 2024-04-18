@@ -13,50 +13,63 @@ public class SalesReportGenerator {
         int count = 0;
         int numm = 0;
 
-		try (Scanner reader = new Scanner(APP.OrderManagement.Order.FILE_NAME);
-             FileWriter writer = new FileWriter(REPORT_FILE_PREFIX + numm + ".doc")) {
+		try (Scanner myreader = new Scanner(APP.OrderManagement.Order.FILE_NAME);
+             FileWriter mywriter = new FileWriter(REPORT_FILE_PREFIX + numm + ".doc")) {
 
-            writer.write("********MONTHLY REPORT*******\n");
-
-            while (reader.hasNextLine()) {
-                String [] mdata = reader.nextLine().split(" ");
-				String ordnum = mdata[0];
-				String name = mdata[1].replace("_"," ");
-				String status = mdata[2];
-				String date = mdata[3];
-				String phonenum = mdata[4];
-				String addr =mdata[5].replace("_"," ").replace("~","\n\t    ");
-				String descrip = mdata[6].replace("_"," ").replace("~","\n\t    ");
-				String cost = mdata[7]; 
+				String l = "                   ********MONTHLY REPORT******* \n";
+				mywriter.write(l);
+			  while (myreader.hasNextLine()) {
+				  
+				  String [] mdata = myreader.nextLine().split(" ");
+				  String ordnum = mdata[1];
+				  String name = mdata[2].replace("_"," ");
+				  String status = mdata[3];
+				  String date = mdata[4];
+				  String phonenum = mdata[5];
+				  String addr =mdata[6].replace("_"," ").replace("~","\n\t    ");
+				  String descrip = mdata[7].replace("_"," ").replace("~","\n\t    ");
+				  String cost = mdata[8]; 
+				  
+					  count++;
+					  
+					  String num=Integer.toString(count);
+					  String txt = "Sales #: "+num+ "\n"+"Order #: "+ordnum+" by: "+ name + " " + "Purchase: "+ descrip +" Cost: " + cost +"\n\n";
+					  int cost2 = Integer.parseInt(cost.replace("$", ""));
+					  // status = status.strip();
+					  // if(status.equals("Completed"))
+					  // {
+						  mywriter.write(txt);
+  
+					  // }
+					  
+					  // else{
+						  totalCost2 += cost2;
+					  // }
+					  
+				  
+				  
+				}
 				
-	    			count++;
-					
-	    			String num=Integer.toString(count);
-	    			String txt = "Sales #: "+num+ "\n"+"Order #: "+ordnum+" by: "+ name + " " + "Purchase: "+ descrip +" Cost: " + cost +"\n\n";
-					int cost2 = Integer.parseInt(cost.replace("$", ""));
-					// status = status.strip();
-					// if(status.equals("Completed"))
-					// {
-						writer.write(txt);
-
-					// }
-	    			
-					// else{
-						totalCost2 += cost2;
-					// }
-					
-	    		
-	    		
-	  		}
-
-            writer.write("\nTotal Monthly Sale: $" + totalCost2 + "\n");
-
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found");
-            e.printStackTrace();
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
-    }
-}
+				mywriter.write("\nTotal Monthly Sale: " + totalCost2 + "\n" );
+				  
+			  mywriter.flush();
+				myreader.close();
+				mywriter.close();
+				mywriter.close();
+		  } catch (FileNotFoundException e) {
+				System.out.println("File not found");
+				e.printStackTrace();
+		  }
+		  catch (IOException e) {
+				System.out.println("An error occurred.");
+				e.printStackTrace();
+		  
+		  }
+		  catch (Exception o) {
+			  System.out.println(o.getMessage());
+		  
+		
+		}
+	  }
+  }
+  

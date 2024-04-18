@@ -15,7 +15,7 @@ public class Stock {
     private DefaultTableModel tableModel;
     private JTable table;
     private static ArrayList<Item> ilist;
-    private String resadd;
+    private String res;
 
     public Stock() {
         itemList = loadStock(FILE_NAME);
@@ -31,14 +31,14 @@ public class Stock {
     private ArrayList<Item> loadStock(String fileName) {
         Scanner scanner = null;
         ArrayList<Item> itemList = new ArrayList<>();
-        resadd = "";
+        res = "";
 
         try {
             scanner = new Scanner(new File(fileName));
             while (scanner.hasNext()) {
                 String[] nextLine = scanner.nextLine().split(" ");
                 if (nextLine[0].equals("resadd")) {
-                    resadd = nextLine[1];
+                    res = nextLine[1];
                 } else if (!nextLine[0].isEmpty()) {
                     String name = nextLine[0];
                     int quantity = Integer.parseInt(nextLine[1]);
@@ -55,7 +55,9 @@ public class Stock {
     public void reduceStock(String item_name, int c) {
         for (Item i : ilist) {
             if (item_name.equals(i.getItemName())) {
-                int reduction = (resadd.isEmpty()) ? 0 : Integer.parseInt(resadd);
+                // String data = APP.System_User_Interface.Order_Table_GUI.resadd;
+                // int reduction = Integer.parseInt(data[1]);
+                int reduction = (res.isEmpty()) ? 0 : Integer.parseInt(res);
                 int newQuantity = i.getItemQuantity() - Math.max(c - reduction, 0);
                 i.changeQuantity(newQuantity);
                 break;
