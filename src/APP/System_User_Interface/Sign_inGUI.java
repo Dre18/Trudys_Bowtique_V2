@@ -26,7 +26,7 @@ public class Sign_inGUI extends JPanel {
     this.userAuth = userAuth;
 
     // Initialize GUI components
-    this.setBackground(Color.GRAY);
+    this.setBackground(Color.WHITE);
     closeButton = new JButton("Close");
     loginButton = new JButton("Login");
     try {
@@ -52,6 +52,8 @@ public class Sign_inGUI extends JPanel {
 
 
     JPanel imagePanel = new JPanel(new FlowLayout(FlowLayout.CENTER)); // Create a panel with FlowLayout centered
+    app.setBounds(500,-270,500,1000);
+    
     if (image != null) {
       imagePanel.add(new JLabel(new ImageIcon(image))); // Add image to label
     }

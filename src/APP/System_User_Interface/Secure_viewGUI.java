@@ -29,31 +29,33 @@ public class Secure_viewGUI extends JPanel {
         Orders.setBackground(Color.cyan);
         Report.setBackground(Color.cyan);
         stockAlertButton.setBackground(Color.cyan);
-        Stock.setBounds(1000, 430, 200, 68);
+        // Stock.setSize(200, 68);
      
-        Dimension buttonSize = new Dimension(200, 100);
-        Stock.setPreferredSize(buttonSize);
-        Orders.setPreferredSize(buttonSize);
-        Report.setPreferredSize(buttonSize);
-        stockAlertButton.setPreferredSize(buttonSize);
+        // Dimension buttonSize = new Dimension(200, 100);
+        // Stock.setSize(buttonSize);
+        // Orders.setSize(buttonSize);
+        // Report.setSize(buttonSize);
+        // stockAlertButton.setSize(buttonSize);
 
         // Use a GridLayout to center the buttons
-        setLayout(new GridLayout(4, 2));
-        JPanel buttonPanel = new JPanel(new GridLayout(4, 2));
+        // setLayout(new GridLayout(4, 2));
+        // JPanel buttonPanel = new JPanel(new GridLayout(4, 2));
         // Use a BorderLayout to center the buttons
         // setLayout(new BorderLayout());
 
         // Create a central panel to hold buttons
-        // JPanel buttonPanel = new JPanel();
+        JPanel buttonPanel = new JPanel();
         buttonPanel.add(Stock);
         buttonPanel.add(Orders);
         buttonPanel.add(Report);
         buttonPanel.add(stockAlertButton);
         buttonPanel.setBackground(Color.cyan);
-
+        buttonPanel.setLayout(new GridLayout(4,2,25,25));
+        setLayout(new BorderLayout());
         // Add the panel to the center of the main panel
-        // add(buttonPanel, BorderLayout.CENTER);
+        add(buttonPanel, BorderLayout.CENTER);
         add(buttonPanel);
+
 
 
         Stock.addActionListener(new StockButtonListener());

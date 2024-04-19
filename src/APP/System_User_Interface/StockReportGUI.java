@@ -1,11 +1,5 @@
 package APP.System_User_Interface;
 
-// package APP.System_User_Interface;
-
-// import APP.StockManagement.StockAlert;
-// import APP.StockManagement.Item;
-// import APP.StockManagement.StockReport;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
