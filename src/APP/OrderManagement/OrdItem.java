@@ -24,9 +24,9 @@ public class OrdItem{
         public OrdItem(int ordnum, String name, String addr, String date, String status_2, String ordDescrip, String phonenum, String cost) {
             this.ordnum=ordnum;
             this.name = name;
-            // if (status_2.equals(status[0]) ||status_2.equals(status[1]) ){
-            //     this.status_2 = status_2;
-            // }
+            if (status_2.equals(status[0]) ||status_2.equals(status[1]) ){
+                this.status_2 = status_2;
+            }
             this.deadline= date;
             this.addr=addr;
             this.ordDescrip=ordDescrip;

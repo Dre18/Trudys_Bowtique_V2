@@ -25,20 +25,35 @@ public class Secure_viewGUI extends JPanel {
         Orders = new JButton("Orders");
         Report = new JButton("Report");
         stockAlertButton = new JButton("Critical Level"); // Create Stock Alert button
+        Stock.setBackground(Color.cyan);
+        Orders.setBackground(Color.cyan);
+        Report.setBackground(Color.cyan);
+        stockAlertButton.setBackground(Color.cyan);
+        Stock.setBounds(1000, 430, 200, 68);
+     
+        Dimension buttonSize = new Dimension(200, 100);
+        Stock.setPreferredSize(buttonSize);
+        Orders.setPreferredSize(buttonSize);
+        Report.setPreferredSize(buttonSize);
+        stockAlertButton.setPreferredSize(buttonSize);
 
-
+        // Use a GridLayout to center the buttons
+        setLayout(new GridLayout(4, 2));
+        JPanel buttonPanel = new JPanel(new GridLayout(4, 2));
         // Use a BorderLayout to center the buttons
-        setLayout(new BorderLayout());
+        // setLayout(new BorderLayout());
 
         // Create a central panel to hold buttons
-        JPanel buttonPanel = new JPanel();
+        // JPanel buttonPanel = new JPanel();
         buttonPanel.add(Stock);
         buttonPanel.add(Orders);
         buttonPanel.add(Report);
         buttonPanel.add(stockAlertButton);
+        buttonPanel.setBackground(Color.cyan);
 
         // Add the panel to the center of the main panel
-        add(buttonPanel, BorderLayout.CENTER);
+        // add(buttonPanel, BorderLayout.CENTER);
+        add(buttonPanel);
 
 
         Stock.addActionListener(new StockButtonListener());

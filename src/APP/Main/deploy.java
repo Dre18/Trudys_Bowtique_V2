@@ -79,14 +79,7 @@ public class deploy extends JPanel {
             System.err.println("System tray not supported!");
         }
 
-    //     try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASSWORD);
-    // Statement stmt = conn.createStatement();)
-    // {
-    //     String sql = "CREATE DATABASE Bowtique";
-    //     stmt.executeUpdate(sql);
-    //     System.out.println("Database created successfully..."); 
-    // }
-
+   
     }
 
    

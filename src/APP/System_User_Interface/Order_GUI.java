@@ -143,12 +143,14 @@ public class Order_GUI extends JFrame{
         showTable(orderList);
         table.setPreferredScrollableViewportSize(new Dimension(500, orderList.size() * 15 + 50));
         table.setFillsViewportHeight(true);
+        // table.setBackground(Color.GRAY);
         scrollPane = new JScrollPane(table);
         toppanel.add(scrollPane);
         toppanel.add(detailspanel); 
         detailspanel.setMargin(new InsetsUIResource(20, 20, 20, 20));
         detailspanel.setFont(new Font("Arial", Font.PLAIN, 20));
-        detailspanel.setBackground(Color.PINK);
+        detailspanel.setBackground(Color.WHITE);
+     
         detailspanel.setText("Click on an order to see its details displayed here.");
         detailspanel.setEditable(false);
 
@@ -481,8 +483,14 @@ private class changeStatus implements ActionListener {
                             JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
                     if (result == 0) {
                         i.setStatus_2("Completed");
+                        updateFile(); // Update the file with the new status
+                        model.setRowCount(0);
+                        showTable(orderList);
                     } else if (result == 1) {
                         i.setStatus_2("Incomplete");
+                        updateFile(); // Update the file with the new status
+                        model.setRowCount(0);
+                        showTable(orderList);
                     }
                     updateFile(); // Update the file with the new status
                     model.setRowCount(0);

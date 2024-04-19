@@ -64,12 +64,4 @@ public class StockReportGUI extends JPanel {
         frame.setVisible(true);
     }
 
-    // public static void main(String[] args) {
-    //     // Creating a StockAlert object
-    //     StockAlert stockAlert = new StockAlert();
-
-    //     // Creating a StockReportGUI object and displaying the GUI
-    //     StockReportGUI stockReportGUI = new StockReportGUI(stockAlert);
-    //     stockReportGUI.createAndShowGUI();
-    // }
 }
