@@ -1,5 +1,10 @@
 package APP.OrderManagement;
 
+import java.awt.event.*;
+import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -18,20 +23,23 @@ import java.util.List;
 import java.util.Scanner;
 
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+
+import org.w3c.dom.events.MouseEvent;
 
 public class Order {
-
-    private static final String FILE_NAME = "OrderList.dat";
-    private ArrayList<OrdItem> orderList;
+    public static final String FILE_NAME = "OrderList.csv";
+    public static ArrayList<OrdItem> orderList;
+     private JTable table;
 
     public Order() {
         orderList = loadItems(FILE_NAME);
-    }
+         
+    }    
 
-    public ArrayList<OrdItem> getOrderList() {
+    public static ArrayList<OrdItem> getOrderList() {
         return orderList;
     }
-
 
     private void writeToFile(ArrayList<OrdItem> orderList) {
         PrintWriter writer = null;
@@ -45,7 +53,6 @@ public class Order {
             System.out.println("Error writing to file");
         }
     }
-
 
     public String getDetails(String orderNum) {
         return DisplayDetails(FILE_NAME, orderNum);
@@ -77,7 +84,43 @@ public class Order {
         writeToFile(orderList);
     }
 
-    private ArrayList<OrdItem> loadItems(String fileName) {
+    public static void removeRecord(String val){
+        String tempfile = "temp.dat";
+        String currentline;
+        File oldfile= new File(FILE_NAME);
+        File newfile = new File(tempfile);
+        try {
+            FileWriter fw = new FileWriter(tempfile, true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter pw = new PrintWriter(bw);
+    
+            FileReader fr = new FileReader(FILE_NAME);
+            BufferedReader br = new BufferedReader(fr);
+            
+            while ((currentline =br.readLine()) != null) {
+                String[] data = currentline.split(" ");
+                if (!(data[0].equals(val))) {
+                     pw.println(currentline);
+                }
+                
+            }
+            pw.flush();
+            pw.close();
+            br.close();
+            fr.close();
+            fw.close();
+            bw.close();
+    
+            oldfile.delete();
+            File temp = new File(FILE_NAME);
+            newfile.renameTo(temp);
+        }
+    
+        catch (IOException IO) {
+        }
+    }
+
+    public static ArrayList<OrdItem> loadItems(String fileName) {
         Scanner pscan = null;
         ArrayList<OrdItem> orderList = new ArrayList<OrdItem>();
 
@@ -138,6 +181,9 @@ public class Order {
         }
         return str;
     }
+
     
+
+
 }
 

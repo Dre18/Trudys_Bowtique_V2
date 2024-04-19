@@ -4,17 +4,22 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import APP.NotificationsandEvents.Notification;
 import APP.Security.UserAuth;
-import APP.System_User_Interface.LoginGUI;
 import APP.System_User_Interface.Sign_inGUI;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Color;
+
+
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+
+import java.awt.*;
+import java.awt.TrayIcon.MessageType;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  *
@@ -28,12 +33,18 @@ public class deploy extends JPanel {
     private JTable table;
     private Color panelColor;
     static int a,b,c;
+    static final String DB_URL = "jdbc:mysql://localhost:3306/";
+    static final String USER = "Trudy";
+    static final String PASSWORD = "AdminTest1";
+    
 
     
     /** 
      * @param args
+     * @throws AWTException 
+     * @throws SQLException 
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws AWTException, SQLException {
 
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
@@ -62,6 +73,22 @@ public class deploy extends JPanel {
                
                 }
         });
+
+        if (SystemTray.isSupported()) {
+            APP.NotificationsandEvents.Notification td = new Notification();
+            // td.displayTray();
+        } else {
+            System.err.println("System tray not supported!");
+        }
+
+    //     try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASSWORD);
+    // Statement stmt = conn.createStatement();)
+    // {
+    //     String sql = "CREATE DATABASE Bowtique";
+    //     stmt.executeUpdate(sql);
+    //     System.out.println("Database created successfully..."); 
+    // }
+
     }
 
    

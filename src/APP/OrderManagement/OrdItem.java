@@ -17,7 +17,7 @@ public class OrdItem{
        private Date date;
        private String deadline;
         private String status_2;
-        // private String status;
+        private String stat;
         
         
 
@@ -40,7 +40,7 @@ public class OrdItem{
             this.date= new Date();
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
             this.deadline= deadline;
-            this.ordnum=1 + calcOrdernum("OrderList.dat");
+            this.ordnum=1 + calcOrdernum("OrderList.csv");
             this.name = name;
             this.addr=addr;
             this.ordDescrip=ordDescrip;
@@ -54,11 +54,10 @@ public class OrdItem{
         }
 
 
-        // public void setStatus(String status) {
-        //     // Validate status (optional)
-        //     // You can add logic to check if the provided status is valid (e.g., from a predefined list of allowed statuses)
-        //     this.status = status;
-        // }
+        public void setStatus(String stat) {
+            
+            this.status_2 = stat;
+        }
 
 
         public String getDescrp()
@@ -155,6 +154,7 @@ public class OrdItem{
         public String getStatus_2() {
             return status_2;
         }
+     
 
         
         
