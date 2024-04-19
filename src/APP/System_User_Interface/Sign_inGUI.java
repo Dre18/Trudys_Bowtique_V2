@@ -26,7 +26,7 @@ public class Sign_inGUI extends JPanel {
     this.userAuth = userAuth;
 
     // Initialize GUI components
-
+    this.setBackground(Color.GRAY);
     closeButton = new JButton("Close");
     loginButton = new JButton("Login");
     try {
@@ -45,21 +45,23 @@ public class Sign_inGUI extends JPanel {
     loginButton.setBounds(300, 430, 200, 68);
 
     // Color and event handling
-    closeButton.setBackground(Color.lightGray);
-    loginButton.setBackground(Color.lightGray);
+    closeButton.setBackground(Color.RED);
+    loginButton.setBackground(Color.GREEN);
     closeButton.addActionListener(new CloseButtonListener());
     loginButton.addActionListener(new LoginButtonListener());
 
 
-    JPanel imagePanel = new JPanel();
+    JPanel imagePanel = new JPanel(new FlowLayout(FlowLayout.CENTER)); // Create a panel with FlowLayout centered
     if (image != null) {
       imagePanel.add(new JLabel(new ImageIcon(image))); // Add image to label
     }
-
+    add(closeButton, BorderLayout.WEST);
+    add(loginButton, BorderLayout.EAST);
+    add(imagePanel, BorderLayout.CENTER);
     // Add components to the panel
-    add(closeButton);
-    add(loginButton);
-    add(imagePanel); // Image panel in the center
+    // add(closeButton);
+    // add(loginButton);
+    // add(imagePanel); // Image panel in the center
 
     // add(displayPanel);
   }

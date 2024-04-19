@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -24,6 +25,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 
+import javax.naming.InsufficientResourcesException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -31,12 +33,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.plaf.InsetsUIResource;
 
 import org.w3c.dom.events.MouseEvent;
 
+import APP.NotificationsandEvents.StockAlert;
 import APP.OrderManagement.OrdItem;
-import APP.System_User_Interface.Order_GUI;
+// import APP.System_User_Interface.Order_GUI;
 import APP.OrderManagement.Order;
 import APP.StockManagement.Stock;
 
@@ -60,6 +64,7 @@ class Order_Table_GUI extends JFrame {
     private JLabel add;
     public static JTextArea tadd;
     public static JButton Done;
+    public static String[] resaddParts;
   
     public JTextArea resadd;
  
@@ -193,65 +198,53 @@ class Order_Table_GUI extends JFrame {
     }
 
 
-    private class DoneButton implements ActionListener{
-    @Override 
+
+
+private class DoneButton implements ActionListener {
+    @Override
     public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == Done){
-			FileWriter f;
-			try {
-				f = new FileWriter(APP.System_User_Interface.Order_GUI.file, true);
-			
-                    BufferedWriter b = new BufferedWriter(f);
-                    PrintWriter w = new PrintWriter(b);
-					OrdItem o = new OrdItem(tname.getText(), t_dline.getText(), tadd.getText(), t_Descrp.getText(), t_mob.getText(), t_cost.getText());
-                    w.println(o.getOrdnum() + " " + o.getName().replace(" ", "_") + " " + o.getStatus_2() + " "
-                            + o.getDeadline() + " " +o.getPhonenum()+" "+ o.getAddr().replace(" ", "_").replace("\n", "~") + " " + o.getOrdDescrip().replace(" ","_").replace("\n", "~") + " " + o.getCost());
+        if (e.getSource() == Done) {
+            FileWriter f;
+            try {
+                f = new FileWriter(APP.System_User_Interface.Order_GUI.file, true);
 
-                    String resaddContent = resadd.getText();
+                BufferedWriter b = new BufferedWriter(f);
+                PrintWriter w = new PrintWriter(b);
+                OrdItem o = new OrdItem(tname.getText(), t_dline.getText(), tadd.getText(), t_Descrp.getText(), t_mob.getText(), t_cost.getText());
+                w.println(o.getOrdnum() + " " + o.getName().replace(" ", "_") + " " + o.getStatus_2() + " "
+                        + o.getDeadline() + " " + o.getPhonenum() + " " + o.getAddr().replace(" ", "_").replace("\n", "~") + " " + o.getOrdDescrip().replace(" ", "_").replace("\n", "~") + " " + o.getCost());
 
-                    // Reduce stock using Stock class
-                    APP.StockManagement.Stock stock = new Stock();
-                    // Assuming item name and reduction amount are separated by space
-                    String[] resaddParts = resaddContent.split(" ");
-                    if (resaddParts.length == 2) {
-                        stock.reduceStock(resaddParts[0], Integer.parseInt(resaddParts[1]));
-                    }
-                    
-					w.flush();
-					w.close();
-					b.close();
-					f.close();
-                    APP.OrderManagement.Order.getOrderList().add(o);
-                    // APP.System_User_Interface.Order_GUI.table.setVisible(false);
-                    dispose();
-                    // tname.setText("");
-                    // t_mob.setText("");
-                    // t_dline.setText("");
-                    // tadd.setText("");
-                    // t_Descrp.setText(""); 
-                    // t_cost.setText("");
-                    
+                String resaddContent = resadd.getText();
 
-                    // resadd.setText("eg:\n Red_Polo_Shirts 5\n (Delete this example before typing)  ");
-                    // setVisible(true);
+                StockAlert stockAlert = new StockAlert();
+                String[] resaddParts = resaddContent.split(" ");
 
+                for (int i = 0; i < resaddParts.length; i += 2) {
+                    String itemName = resaddParts[i];
+                    int quantity = Integer.parseInt(resaddParts[i + 1]);
+                    stockAlert.reduceStock(itemName, quantity);
+                }
 
+                w.flush();
+                w.close();
+                b.close();
+                f.close();
 
-				} catch (IOException e1) {
-                    Order_GUI panel = new Order_GUI();
-					JOptionPane.showMessageDialog(panel,"Something went wrong");
-				}
-				APP.System_User_Interface.Order_GUI.model.setRowCount(0);
-                APP.OrderManagement.Order.orderList=APP.OrderManagement.Order.loadItems(APP.System_User_Interface.Order_GUI.file);
-                APP.System_User_Interface.Order_GUI.showTable( APP.OrderManagement.Order.orderList);
-                
-		}
-  
+                APP.System_User_Interface.Order_GUI.model.setRowCount(0);
+                APP.OrderManagement.Order.orderList = APP.OrderManagement.Order.loadItems(APP.System_User_Interface.Order_GUI.file);
+                APP.System_User_Interface.Order_GUI.showTable(APP.OrderManagement.Order.orderList);
 
-    
+            } catch (IOException e1) {
+                Order_GUI panel = new Order_GUI();
+                JOptionPane.showMessageDialog(panel, "Something went wrong");
+            }
+
+        }
+
+        // Close the frame after all operations are completed
+        setVisible(false);
+        dispose();
+    }
 }
-
-}
-
 
 }

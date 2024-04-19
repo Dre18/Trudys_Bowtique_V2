@@ -41,7 +41,7 @@ public class Stock_GUI extends JPanel {
     public Stock_GUI(Stock stockManagement) {
         super(new GridLayout(2, 1));
         this.stockManagement = stockManagement;
-        
+      
 
         JPanel buttonPanel = new JPanel();
         updateButton = new JButton("Update Item");
@@ -51,17 +51,20 @@ public class Stock_GUI extends JPanel {
         buttonPanel.add(updateButton);
         buttonPanel.add(addItemButton);
         buttonPanel.add(deleteButton);
+        // buttonPanel.setBackground(Color.GRAY);
 
         updateButton.addActionListener(new UpdateButtonListener());
         addItemButton.addActionListener(new AddItemButtonListener());
         deleteButton.addActionListener(new DeleteButtonListener());
 
                 
-        this.stockManagement = stockManagement;
+        // this.stockManagement = stockManagement;
 
         model = new DefaultTableModel(new String[]{"Items", "Quantity"}, 0);
         
         JScrollPane scrollPane = new JScrollPane(stockManagement.getTable());
+        scrollPane.setBackground(Color.GRAY); // Set background color here
+
         add(scrollPane);
 
         JPanel inputPanel = new JPanel(new GridLayout(4, 0));
@@ -69,6 +72,7 @@ public class Stock_GUI extends JPanel {
         pnl.add(new JLabel("New Item:"));
         item = new JTextField(1);
         pnl.add(item);
+        // pnl.setBackground(Color.GRAY);
         
 
         pnl.add(new JLabel("Quantity:"));
@@ -87,6 +91,7 @@ public class Stock_GUI extends JPanel {
         inputPanel.add(buttonPanel, BorderLayout.PAGE_START);
         
         add(inputPanel);
+        // inputPanel.setBackground(Color.GRAY);
     }
 
     public void createAndShowGUI() {

@@ -1,5 +1,8 @@
 package APP.System_User_Interface;
 
+// User/
+// here is a class that may help   package APP.System_User_Interface;
+
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -50,7 +53,7 @@ public class Order_GUI extends JFrame{
     private Order_Table_GUI newOrder;
 	JMenuItem addRecord;
 	JMenu editRecord;
-	JMenuItem savetable;
+	JMenuItem changeStatus;
 	JMenuItem editDescrp;
 	JMenuItem editCost;
 	JMenuItem editPhonenum;
@@ -87,14 +90,14 @@ public class Order_GUI extends JFrame{
         sortByIncomplete = new JMenuItem("Incomplete Order(s)");
         sortByIncomplete.addActionListener(new sortByIncompleted());
 
-        savetable = new JMenuItem("Save table changes");
-        // savetable.addActionListener(new savetable());
+        changeStatus = new JMenuItem("Change order Status");
+        // changeStatus.addActionListener(new changeStatus());
         editDescrp = new JMenuItem("Edit Order Description");
-        // editDescrp.addActionListener(this);
+        editDescrp.addActionListener(new  editDescrp());
         editPhonenum = new JMenuItem("Edit Phone number");
-        // editPhonenum.addActionListener(this);
+        editPhonenum.addActionListener(new editPhonenum());
         editCost = new JMenuItem("Edit the cost of an order");
-        // editCost.addActionListener(this);
+        editCost.addActionListener(new editCost());
 
 
         sortRecord.add(sortByOrdNum);
@@ -104,7 +107,7 @@ public class Order_GUI extends JFrame{
         Options = new JMenu("Option");
         addRecord = new JMenuItem("New Order");
         editRecord = new JMenu("Edit Order");
-        editRecord.add(savetable);
+        editRecord.add(changeStatus);
         editRecord.add(editDescrp);
         editRecord.add(editPhonenum);
         editRecord.add(editCost);
@@ -119,7 +122,7 @@ public class Order_GUI extends JFrame{
         addRecord.addActionListener(new addNewRecord());
         // editRecord.addActionListener(new editRecord());
         delRecord.addActionListener(new deleteRecord());
-        // savetable.addActionListener(new savetable());
+        changeStatus.addActionListener(new changeStatus());
         // sortRecord.addActionListener(new sortRecord());
         // sortByOrdNum.addActionListener(this);
         
@@ -134,18 +137,20 @@ public class Order_GUI extends JFrame{
         this.setLocationRelativeTo(null);  
         this.setVisible(true);
         orderList = loadItems(file);
-        String[] columnNames = { "Order No.", "Customer's Name", "Status of Order", "DeadLine" };
+        String[] columnNames = { "Order No.", "Item Name", "Status of Order", "DeadLine" };
         model = new DefaultTableModel(columnNames, 0);
         table = new JTable(model);
         showTable(orderList);
         table.setPreferredScrollableViewportSize(new Dimension(500, orderList.size() * 15 + 50));
         table.setFillsViewportHeight(true);
+        // table.setBackground(Color.GRAY);
         scrollPane = new JScrollPane(table);
         toppanel.add(scrollPane);
         toppanel.add(detailspanel); 
         detailspanel.setMargin(new InsetsUIResource(20, 20, 20, 20));
         detailspanel.setFont(new Font("Arial", Font.PLAIN, 20));
         detailspanel.setBackground(Color.WHITE);
+     
         detailspanel.setText("Click on an order to see its details displayed here.");
         detailspanel.setEditable(false);
 
@@ -378,9 +383,139 @@ public class Order_GUI extends JFrame{
         }
         
     } 
+    
+    private class editCost implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource() == editCost) {
+                String newCost = JOptionPane.showInputDialog(null, "Enter the new cost:");
+                if (newCost != null && !newCost.isEmpty()) {
+                    int row = table.getSelectedRow();
+                    if (row != -1) {
+                        String ordnum = table.getValueAt(row, 0).toString();
+                        for (OrdItem i : orderList) {
+                            if (String.valueOf(i.getOrdnum()).equals(ordnum)) {
+                                i.setCost(newCost);
+                                updateFile(); // Update the file with the new cost
+                                model.setRowCount(0);
+                                showTable(orderList);
+                                break;
+                            }
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Please select an order to edit.");
+                    }
+                }
+            }
+        }
+    }
 
+
+
+        private class  editDescrp implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+             if (e.getSource() == editDescrp) {
+                String newDescription = JOptionPane.showInputDialog(null, "Enter the new description:");
+                if (newDescription != null && !newDescription.isEmpty()) {
+                    int row = table.getSelectedRow();
+                    if (row != -1) {
+                        String ordnum = table.getValueAt(row, 0).toString();
+                        for (OrdItem i : orderList) {
+                            if (String.valueOf(i.getOrdnum()).equals(ordnum)) {
+                                i.setOrdDescrip(newDescription);
+                                model.setRowCount(0);
+                                updateFile(); // Update the file with the new cost
+
+                                showTable(orderList);
+                                break;
+                            }
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Please select an order to edit.");
+                    }
+                }
+                   
+            }
+        }
+    }
+
+        private class  editPhonenum implements ActionListener {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            if (e.getSource() == editPhonenum) {
+                String newPhoneNumber = JOptionPane.showInputDialog(null, "Enter the new phone number:");
+                if (newPhoneNumber != null && !newPhoneNumber.isEmpty()) {
+                    int row = table.getSelectedRow();
+                    if (row != -1) {
+                        String ordnum = table.getValueAt(row, 0).toString();
+                        for (OrdItem i : orderList) {
+                            if (String.valueOf(i.getOrdnum()).equals(ordnum)) {
+                                i.setPhonenum(newPhoneNumber);
+                                updateFile(); // Update the file with the new cost
+
+                                model.setRowCount(0);
+                                showTable(orderList);
+                                break;
+                            }
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Please select an order to edit.");
+                    }
+                }
+            }
+        
+    }
+    
 
 }
 
+private class changeStatus implements ActionListener {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        int row = table.getSelectedRow();
+        if (row != -1) {
+            String ordnum = table.getValueAt(row, 0).toString();
+            for (OrdItem i : orderList) {
+                if (String.valueOf(i.getOrdnum()).equals(ordnum)) {
+                    String[] options = { "Completed", "Incomplete" };
+                    int result = JOptionPane.showOptionDialog(null, "Change status to:", "Change Status",
+                            JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+                    if (result == 0) {
+                        i.setStatus_2("Completed");
+                        updateFile(); // Update the file with the new status
+                        model.setRowCount(0);
+                        showTable(orderList);
+                    } else if (result == 1) {
+                        i.setStatus_2("Incomplete");
+                        updateFile(); // Update the file with the new status
+                        model.setRowCount(0);
+                        showTable(orderList);
+                    }
+                    updateFile(); // Update the file with the new status
+                    model.setRowCount(0);
+                    showTable(orderList);
+                    break;
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Please select an order to change status.");
+        }
+    }
+}
 
-  
+        
+        private void updateFile() {
+            try {
+                PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(file)));
+                for (OrdItem item : orderList) {
+                    writer.println(item.toFileString());
+                }
+                writer.close();
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "Error updating file.");
+            }
+        }
+
+        
+}

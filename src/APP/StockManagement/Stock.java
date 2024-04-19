@@ -4,17 +4,18 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import APP.NotificationsandEvents.Notification;
-
+import APP.System_User_Interface.*;
 import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+import APP.OrderManagement.*;
 
 public class Stock {
 
-    private static final String FILE_NAME = "StockList.csv";
-    private ArrayList<Item> itemList;
-    private DefaultTableModel tableModel;
+    public static final String FILE_NAME = "StockList.csv";
+    private static ArrayList<Item> itemList;
+    public static DefaultTableModel tableModel;
     private JTable table;
     private static ArrayList<Item> ilist;
     private String res;
@@ -54,43 +55,9 @@ public class Stock {
         return itemList;
     }
 
-    // public void reduceStock(String item_name, int c) {
-    //     for (Item i : ilist) {
-    //         if (item_name.equals(i.getItemName())) {
-    //             // String data = APP.System_User_Interface.Order_Table_GUI.resadd;
-    //             // int reduction = Integer.parseInt(data[1]);
-    //             int reduction = (res.isEmpty()) ? 0 : Integer.parseInt(res);
-    //             int newQuantity = i.getItemQuantity() - Math.max(c - reduction, 0);
-    //             i.changeQuantity(newQuantity);
-    //             break;
-    //         }
-    //     }
-    // }
+     
 
-
-    public void reduceStock(String item_name, int c) {
-        for (Item i : ilist) {
-          if (item_name.equals(i.getItemName())) {
-            int reduction = Integer.parseInt(res); // Assuming res is set elsewhere
-            int newQuantity = Math.max(i.getItemQuantity() - (c - reduction), 0);
-            i.changeQuantity(newQuantity);
-      
-            // Check stock level and trigger notification if low
-            if (newQuantity != reduction) {
-              APP.NotificationsandEvents.Notification notification = new Notification();
-              try {
-                notification.displayTray();
-              } catch (AWTException e) {
-                // Handle exception (e.g., notification not displayed)
-              }
-            }
-            break;
-          }
-        }
-      }
-
-
-    public void addItem(String itemName, String quantityString) {
+    public static void addItem(String itemName, String quantityString) {
         try {
             int quantity = Integer.parseInt(quantityString);
             Item newItem = new Item(itemName, quantity);
@@ -102,7 +69,7 @@ public class Stock {
         }
     }
 
-    private void addToTable(Item item) {
+    private static void addToTable(Item item) {
         String[] itemData = {item.getItemName(), String.valueOf(item.getItemQuantity())};
         tableModel.addRow(itemData);
     }
@@ -118,7 +85,7 @@ public class Stock {
             }
         }
     }
-    private void writeStockToFile() {
+    public static void writeStockToFile() {
         FileWriter fileWriter = null;
         BufferedWriter bufferedWriter = null;
         PrintWriter printWriter = null;
@@ -197,7 +164,6 @@ public class Stock {
         }
     }
     
-
 
 
     public void deleteItem() {

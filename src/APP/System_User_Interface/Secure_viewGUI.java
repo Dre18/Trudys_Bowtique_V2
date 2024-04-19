@@ -2,6 +2,7 @@ package APP.System_User_Interface;
 
 import javax.swing.*;
 
+import APP.NotificationsandEvents.StockAlert;
 import APP.OrderManagement.Order;
 import APP.StockManagement.Stock;
 
@@ -14,6 +15,8 @@ public class Secure_viewGUI extends JPanel {
     private JButton Stock;
     private JButton Orders;
     private JButton Report;
+    private JButton stockAlertButton; // Button for opening StockAlertGUI
+
 
 
     public Secure_viewGUI() {
@@ -21,23 +24,43 @@ public class Secure_viewGUI extends JPanel {
         Stock = new JButton("Stock");
         Orders = new JButton("Orders");
         Report = new JButton("Report");
+        stockAlertButton = new JButton("Critical Level"); // Create Stock Alert button
+        Stock.setBackground(Color.cyan);
+        Orders.setBackground(Color.cyan);
+        Report.setBackground(Color.cyan);
+        stockAlertButton.setBackground(Color.cyan);
+        Stock.setBounds(1000, 430, 200, 68);
+     
+        Dimension buttonSize = new Dimension(200, 100);
+        Stock.setPreferredSize(buttonSize);
+        Orders.setPreferredSize(buttonSize);
+        Report.setPreferredSize(buttonSize);
+        stockAlertButton.setPreferredSize(buttonSize);
 
+        // Use a GridLayout to center the buttons
+        setLayout(new GridLayout(4, 2));
+        JPanel buttonPanel = new JPanel(new GridLayout(4, 2));
         // Use a BorderLayout to center the buttons
-        setLayout(new BorderLayout());
+        // setLayout(new BorderLayout());
 
         // Create a central panel to hold buttons
-        JPanel buttonPanel = new JPanel();
+        // JPanel buttonPanel = new JPanel();
         buttonPanel.add(Stock);
         buttonPanel.add(Orders);
         buttonPanel.add(Report);
+        buttonPanel.add(stockAlertButton);
+        buttonPanel.setBackground(Color.cyan);
 
         // Add the panel to the center of the main panel
-        add(buttonPanel, BorderLayout.CENTER);
+        // add(buttonPanel, BorderLayout.CENTER);
+        add(buttonPanel);
 
 
         Stock.addActionListener(new StockButtonListener());
         Orders.addActionListener(new OrderButtonListener());
         Report.addActionListener(new ReportButtonListener());
+        stockAlertButton.addActionListener(new StockAlertButtonListener());
+
     }
 
 
@@ -82,6 +105,16 @@ public class Secure_viewGUI extends JPanel {
         }
     }
 
+
+    private class StockAlertButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            StockAlert stockAlert = new StockAlert(); // Create an instance of StockAlert
+            StockAlertGUI stockAlertGUI = new StockAlertGUI(stockAlert); // Pass the StockAlert object to the StockAlertGUI constructor
+            stockAlertGUI.createAndShowGUI(); // Show StockAlertGUI
+        }
+    }
+
     private class ReportButtonListener implements ActionListener {
         private  final JOptionPane JJOptionPane = null;
     
@@ -104,5 +137,7 @@ public class Secure_viewGUI extends JPanel {
                 }
             }
         }
+
+        
    
 }
