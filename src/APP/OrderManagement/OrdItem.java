@@ -24,14 +24,15 @@ public class OrdItem{
         public OrdItem(int ordnum, String name, String addr, String date, String status_2, String ordDescrip, String phonenum, String cost) {
             this.ordnum=ordnum;
             this.name = name;
-            if (status_2.equals(status[0]) ||status_2.equals(status[1]) ){
-                this.status_2 = status_2;
-            }
+            // if (status_2.equals(status[0]) ||status_2.equals(status[1]) ){
+            //     this.status_2 = status_2;
+            // }
             this.deadline= date;
             this.addr=addr;
             this.ordDescrip=ordDescrip;
             this.phonenum=phonenum;
             this.cost=cost;
+            this.status=status;
     
         }
         public OrdItem(String name, String deadline, String addr, String ordDescrip, String phonenum, String cost) {
@@ -52,7 +53,10 @@ public class OrdItem{
 
     
         }
-
+        public void setStatus_2(String stat) {
+            
+            this.status = status;
+        }
 
         public void setStatus(String stat) {
             
@@ -64,9 +68,15 @@ public class OrdItem{
         {
             return t_Descrip;
         }
+public void setOrdDescrip(String ordDescrip)
+{
+    this.ordDescrip=ordDescrip;
 
-        
-
+}
+public void setPhonenum(String phonenum)
+{
+    this.phonenum = phonenum;
+}
 
         /** 
          * @param pfile
@@ -154,10 +164,27 @@ public class OrdItem{
         public String getStatus_2() {
             return status_2;
         }
+      
      
-
-        
-        
+      
+    
+        public void setCost(String cost) {
+            this.cost = cost;
+        }
+            public String toFileString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(ordnum).append(" ");
+        sb.append(name.replace(" ", "_")).append(" ");
+        sb.append(status).append(" ");
+        sb.append(deadline).append(" ");
+        sb.append(phonenum).append(" ");
+        sb.append(addr.replace(" ", "_")).append(" ");
+        sb.append(ordDescrip.replace(" ", "_")).append(" ");
+        sb.append(cost);
+        return sb.toString();
     }
+}
+        
+    
 
 

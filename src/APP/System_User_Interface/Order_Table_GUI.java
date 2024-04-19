@@ -40,7 +40,7 @@ import org.w3c.dom.events.MouseEvent;
 
 import APP.NotificationsandEvents.StockAlert;
 import APP.OrderManagement.OrdItem;
-import APP.System_User_Interface.Order_GUI;
+// import APP.System_User_Interface.Order_GUI;
 import APP.OrderManagement.Order;
 import APP.StockManagement.Stock;
 
