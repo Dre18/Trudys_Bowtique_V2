@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -24,6 +25,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 
+import javax.naming.InsufficientResourcesException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -31,10 +33,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.plaf.InsetsUIResource;
 
 import org.w3c.dom.events.MouseEvent;
 
+import APP.NotificationsandEvents.StockAlert;
 import APP.OrderManagement.OrdItem;
 import APP.System_User_Interface.Order_GUI;
 import APP.OrderManagement.Order;
@@ -194,76 +198,138 @@ class Order_Table_GUI extends JFrame {
     }
 
 
-    private class DoneButton implements ActionListener{
-    @Override 
-    public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == Done){
-			FileWriter f;
-			try {
-				f = new FileWriter(APP.System_User_Interface.Order_GUI.file, true);
+//     private class DoneButton implements ActionListener{
+//     @Override 
+//     public void actionPerformed(ActionEvent e) {
+// 		if (e.getSource() == Done){
+// 			FileWriter f;
+// 			try {
+// 				f = new FileWriter(APP.System_User_Interface.Order_GUI.file, true);
 			
-                    BufferedWriter b = new BufferedWriter(f);
-                    PrintWriter w = new PrintWriter(b);
-					OrdItem o = new OrdItem(tname.getText(), t_dline.getText(), tadd.getText(), t_Descrp.getText(), t_mob.getText(), t_cost.getText());
-                    w.println(o.getOrdnum() + " " + o.getName().replace(" ", "_") + " " + o.getStatus_2() + " "
-                            + o.getDeadline() + " " +o.getPhonenum()+" "+ o.getAddr().replace(" ", "_").replace("\n", "~") + " " + o.getOrdDescrip().replace(" ","_").replace("\n", "~") + " " + o.getCost());
+//                     BufferedWriter b = new BufferedWriter(f);
+//                     PrintWriter w = new PrintWriter(b);
+// 					OrdItem o = new OrdItem(tname.getText(), t_dline.getText(), tadd.getText(), t_Descrp.getText(), t_mob.getText(), t_cost.getText());
+//                     w.println(o.getOrdnum() + " " + o.getName().replace(" ", "_") + " " + o.getStatus_2() + " "
+//                             + o.getDeadline() + " " +o.getPhonenum()+" "+ o.getAddr().replace(" ", "_").replace("\n", "~") + " " + o.getOrdDescrip().replace(" ","_").replace("\n", "~") + " " + o.getCost());
 
-                    String resaddContent = resadd.getText();
+//                     String resaddContent = resadd.getText();
 
-                    // // Reduce stock using Stock class
-                    APP.StockManagement.Stock stock = new Stock();
-                    // // Assuming item name and reduction amount are separated by space
-                    resaddParts = resaddContent.split(" ");
-                    // System.out.println(resaddParts[0]);
-                    // System.out.println(Integer.parseInt(resaddParts[1]));
-                    // if (resaddParts.length == 2) {
-                    // stock.reduceStock(resaddParts[0], Integer.parseInt(resaddParts[1]));
-                    // }
+//                     // // Reduce stock using Stock class
+//                     // APP.StockManagement.Stock stock = new Stock();
+//                     // // Assuming item name and reduction amount are separated by space
+//                     resaddParts = resaddContent.split(" ");
+//                     StockAlert stockAlert = new StockAlert();
+//                     String[] resaddParts = resaddContent.split(" ");
+
+//                     for (int i = 0; i < resaddParts.length; i += 2) {
+//                     String itemName = resaddParts[i];
+//                     int quantity = Integer.parseInt(resaddParts[i + 1]);
                     
-					w.flush();
-					w.close();
-					b.close();
-					f.close();
-                    APP.OrderManagement.Order.getOrderList().add(o);
-                    APP.System_User_Interface.Order_GUI.table.setVisible(false);
+//                         stockAlert.reduceStock(itemName, quantity);
+//                     // }
+                    
+// }
 
-                    APP.System_User_Interface.Order_GUI.model.setRowCount(0);
-                    APP.OrderManagement.Order.orderList=APP.OrderManagement.Order.loadItems(APP.System_User_Interface.Order_GUI.file);
-                    APP.System_User_Interface.Order_GUI.showTable( APP.OrderManagement.Order.orderList);
-                
-                    // this.setVisible(false);
-                    // System.exit(ABORT);
-                    // tname.setText("");
-                    // t_mob.setText("");
-                    // t_dline.setText("");
-                    // tadd.setText("");
-                    // t_Descrp.setText(""); 
-                    // t_cost.setText("");
+//                     // System.out.println(resaddParts[0]);
+//                     // System.out.println(Integer.parseInt(resaddParts[1]));
+//                     // if (resaddParts.length == 2) {
+//                     // stock.reduceStock(resaddParts[0], Integer.parseInt(resaddParts[1]));
+//                     // }
+                    
+// 					w.flush();
+// 					w.close();
+// 					b.close();
+// 					f.close();
+//                     // APP.OrderManagement.Order.getOrderList().add(o);
+//                     // APP.System_User_Interface.Order_GUI.table.setVisible(false);
+
+//                     APP.System_User_Interface.Order_GUI.model.setRowCount(0);
+//                     APP.OrderManagement.Order.orderList=APP.OrderManagement.Order.loadItems(APP.System_User_Interface.Order_GUI.file);
+//                     APP.System_User_Interface.Order_GUI.showTable( APP.OrderManagement.Order.orderList);
+//                     Window window = SwingUtilities.getWindowAncestor(Order_Table_GUI.this);
+//                     window.dispose();
+//                     // this.setVisible(false);
+//                     // System.exit(ABORT);
+//                     // tname.setText("");
+//                     // t_mob.setText("");
+//                     // t_dline.setText("");
+//                     // tadd.setText("");
+//                     // t_Descrp.setText(""); 
+//                     // t_cost.setText("");
                     
 
-                    // resadd.setText("eg:\n Red_Polo_Shirts 5\n (Delete this example before typing)  ");
-                    // setVisible(true);
+//                     // resadd.setText("eg:\n Red_Polo_Shirts 5\n (Delete this example before typing)  ");
+//                     // setVisible(true);
 
 
 
-				} catch (IOException e1) {
-                    Order_GUI panel = new Order_GUI();
-					JOptionPane.showMessageDialog(panel,"Something went wrong");
-                } catch (NumberFormatException e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
-                } catch (Exception e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
-                }
+// 				} catch (IOException e1) {
+//                     Order_GUI panel = new Order_GUI();
+// 					JOptionPane.showMessageDialog(panel,"Something went wrong");
+//                 }  
+//                 // catch (IOException e) {
+//                 //     // Handle IO exceptions during stock reduction
+//                 //     e.printStackTrace();
+//                 //     JOptionPane.showMessageDialog(null, "Error reducing stock for " + itemName);
+//                 // } 
+//                 // catch (InsufficientResourcesException ke) {
+//                 //     // Handle insufficient stock exceptions
+//                 //     JOptionPane.showMessageDialog(null, "Insufficient stock for " + getName());
+//                 // }
 				
-		}
+// 		}
   
 
     
-}
+// }
 
-}
+// }
 
+private class DoneButton implements ActionListener {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == Done) {
+            FileWriter f;
+            try {
+                f = new FileWriter(APP.System_User_Interface.Order_GUI.file, true);
+
+                BufferedWriter b = new BufferedWriter(f);
+                PrintWriter w = new PrintWriter(b);
+                OrdItem o = new OrdItem(tname.getText(), t_dline.getText(), tadd.getText(), t_Descrp.getText(), t_mob.getText(), t_cost.getText());
+                w.println(o.getOrdnum() + " " + o.getName().replace(" ", "_") + " " + o.getStatus_2() + " "
+                        + o.getDeadline() + " " + o.getPhonenum() + " " + o.getAddr().replace(" ", "_").replace("\n", "~") + " " + o.getOrdDescrip().replace(" ", "_").replace("\n", "~") + " " + o.getCost());
+
+                String resaddContent = resadd.getText();
+
+                StockAlert stockAlert = new StockAlert();
+                String[] resaddParts = resaddContent.split(" ");
+
+                for (int i = 0; i < resaddParts.length; i += 2) {
+                    String itemName = resaddParts[i];
+                    int quantity = Integer.parseInt(resaddParts[i + 1]);
+                    stockAlert.reduceStock(itemName, quantity);
+                }
+
+                w.flush();
+                w.close();
+                b.close();
+                f.close();
+
+                APP.System_User_Interface.Order_GUI.model.setRowCount(0);
+                APP.OrderManagement.Order.orderList = APP.OrderManagement.Order.loadItems(APP.System_User_Interface.Order_GUI.file);
+                APP.System_User_Interface.Order_GUI.showTable(APP.OrderManagement.Order.orderList);
+
+            } catch (IOException e1) {
+                Order_GUI panel = new Order_GUI();
+                JOptionPane.showMessageDialog(panel, "Something went wrong");
+            }
+
+        }
+
+        // Close the frame after all operations are completed
+        setVisible(false);
+        dispose();
+    }
+}
 
 }

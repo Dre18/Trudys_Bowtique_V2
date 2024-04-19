@@ -9,7 +9,7 @@ public class Notification{
     /** 
      * @throws AWTException
      */
-    public void displayTray(){
+    public static void displayTray(String msg){
         try{
 
              //Obtain only one instance of the SystemTray object
@@ -29,8 +29,7 @@ public class Notification{
 
         // if()
 
-        trayIcon.displayMessage("Trudy's Bowtique Store Manager", "ALERT Stock is below 50% \n"
-       +"Please address the Stock Management System", MessageType.INFO);
+        trayIcon.displayMessage("Trudy's Bowtique Store Manager", msg, MessageType.INFO);
 
         }
         catch(Exception i)

@@ -1,5 +1,6 @@
 package APP.System_User_Interface;
 
+import javax.management.Notification;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -60,9 +61,15 @@ public class StockAlertGUI extends JPanel {
                     for (Item item : lowStockItems) {
                         model.addRow(new Object[]{item.getItemName(), item.getItemQuantity(), overallCriticalLevel});
                     }
+                    // if (SystemTray.isSupported()) {
+                        String msg = "ALERT: \nStock items are below critical level.";
+                        APP.NotificationsandEvents.Notification.displayTray(msg);
+                    // } 
                     JOptionPane.showMessageDialog(null, "ALERT: The following items are below critical level.");
                 } else {
                     JOptionPane.showMessageDialog(null, "All items are above critical level.");
+                    String msg = "All items are above critical level.";
+                    APP.NotificationsandEvents.Notification.displayTray(msg);
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Invalid critical level.");
@@ -104,7 +111,7 @@ public class StockAlertGUI extends JPanel {
 
     public void createAndShowGUI() {
         JFrame frame = new JFrame("Stock Alert");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setPreferredSize(new Dimension(400, 300));
         frame.getContentPane().add(this);
         frame.pack();

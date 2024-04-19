@@ -2,13 +2,17 @@ package APP.NotificationsandEvents;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+
+import javax.naming.InsufficientResourcesException;
 
 import APP.StockManagement.Item;
 
@@ -110,19 +114,46 @@ public class StockAlert {
         }
     }
 
-    // public static void main(String[] args) {
-    //     StockAlert stockAlert = new StockAlert();
-    //     List<Item> lowStockItems = stockAlert.checkStockLevels();
-    //     if (!lowStockItems.isEmpty()) {
-    //         System.out.println("ALERT: The following items are below critical level:");
-    //         for (int i = 0; i < lowStockItems.size(); i++) {
-    //             Item item = lowStockItems.get(i);
-    //             System.out.println((i + 1) + ". " + item.getItemName() + ": Quantity = " + item.getItemQuantity());
-    //         }
 
-    //         stockAlert.changeOverallCriticalLevel(); // Prompt user to change overall critical level
-    //     } else {
-    //         System.out.println("All items are above the critical level.");
-    //     }
-    // }
+
+    public void reduceStock(String name, int quantity) {
+        List<Item> updatedItems = new ArrayList<>();
+    
+        try (BufferedReader br = new BufferedReader(new FileReader(APP.StockManagement.Stock.FILE_NAME))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.trim().split("\\s+");
+                if (parts.length == 2) {
+                    String itemName = parts[0].trim();
+                    int currentQuantity = Integer.parseInt(parts[1].trim());
+    
+                    // Reduce quantity if item name matches and quantity is sufficient
+                    if (name.equals(itemName) && currentQuantity >= quantity) {
+                        updatedItems.add(new Item(itemName, currentQuantity - quantity));
+                    } else {
+                        updatedItems.add(new Item(itemName, currentQuantity));
+                    }
+                }
+            }
+    
+            // Write updated items back to the file
+            try (PrintWriter writer = new PrintWriter(new FileWriter(APP.StockManagement.Stock.FILE_NAME))) {
+                for (Item item : updatedItems) {
+                    writer.println(item.getItemName() + " " + item.getItemQuantity());
+                }
+            }
+    
+            System.out.println("Stock updated successfully.");
+    
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+
+
+
+
+
+
 }

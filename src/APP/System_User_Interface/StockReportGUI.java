@@ -56,7 +56,7 @@ public class StockReportGUI extends JPanel {
 
     public void createAndShowGUI() {
         JFrame frame = new JFrame("Stock Report");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setPreferredSize(new Dimension(600, 400));
         frame.getContentPane().add(this);
         frame.pack();

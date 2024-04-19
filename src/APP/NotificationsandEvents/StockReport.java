@@ -36,12 +36,5 @@ public class StockReport {
         return (int) (item.getItemQuantity() * 0.2);
     }
 
-    // public static void main(String[] args) {
-    //     // Creating a StockAlert object
-    //     StockAlert stockAlert = new StockAlert();
-
-    //     // Creating a StockReport object and generating the report
-    //     StockReport stockReport = new StockReport(stockAlert);
-    //     stockReport.generateReport();
-    // }
+   
 }

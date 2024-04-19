@@ -14,8 +14,8 @@ import APP.OrderManagement.*;
 public class Stock {
 
     public static final String FILE_NAME = "StockList.csv";
-    private ArrayList<Item> itemList;
-    private DefaultTableModel tableModel;
+    private static ArrayList<Item> itemList;
+    public static DefaultTableModel tableModel;
     private JTable table;
     private static ArrayList<Item> ilist;
     private String res;
@@ -55,67 +55,9 @@ public class Stock {
         return itemList;
     }
 
-    // public void reduceStock(String item_name, int c) {
-    //     for (Item i : ilist) {
-    //         if (item_name.equals(i.getItemName())) {
-    //             // String data = APP.System_User_Interface.Order_Table_GUI.resadd;
-    //             // int reduction = Integer.parseInt(data[1]);
-    //             int reduction = (res.isEmpty()) ? 0 : Integer.parseInt(res);
-    //             int newQuantity = i.getItemQuantity() - Math.max(c - reduction, 0);
-    //             i.changeQuantity(newQuantity);
-    //             break;
-    //         }
-    //     }
-    // }
+     
 
-
-  
-
-    // public void reduceStock(String item_name, int quantity) {
-    //     for (Item i : ilist) {
-    //       if (item_name.equals(i.getItemName())) {
-    //         int reduction = quantity; // Assuming res is set elsewhere
-    //         int newQuantity = Math.max(i.getItemQuantity() - (reduction), 0);
-    //         i.changeQuantity(newQuantity);
-      
-    //         // Check stock level and trigger notification if low
-    //         if (newQuantity != reduction) {
-    //           APP.NotificationsandEvents.Notification notification = new Notification();
-    //           try {
-    //             notification.displayTray();
-    //           } 
-    //           catch (Exception e) {
-    //             // Handle exception (e.g., notification not displayed)
-    //           }
-    //         }
-    //         break;
-    //       }
-    //     }
-    //   }
-
-
-    
-    // public void reduceStock(String item_name, int quantity) throws IOException {
-    //     System.out.println(item_name);
-    //     System.out.println(quantity);
-    //     BufferedReader in = new BufferedReader(new FileReader(APP.OrderManagement.Order.FILE_NAME));  
-    //   String line;
-    //   while((line = in.readLine()) != null)
-    //   {
-    //     String [] redlst;
-    //     redlst.append(line);
-    //     //   System.out.println(line);
-        
-    
-    //   }
-    //   in.close();
-    //   }
-
-
-   
-      
-
-    public void addItem(String itemName, String quantityString) {
+    public static void addItem(String itemName, String quantityString) {
         try {
             int quantity = Integer.parseInt(quantityString);
             Item newItem = new Item(itemName, quantity);
@@ -127,7 +69,7 @@ public class Stock {
         }
     }
 
-    private void addToTable(Item item) {
+    private static void addToTable(Item item) {
         String[] itemData = {item.getItemName(), String.valueOf(item.getItemQuantity())};
         tableModel.addRow(itemData);
     }
@@ -143,7 +85,7 @@ public class Stock {
             }
         }
     }
-    private void writeStockToFile() {
+    public static void writeStockToFile() {
         FileWriter fileWriter = null;
         BufferedWriter bufferedWriter = null;
         PrintWriter printWriter = null;
@@ -222,59 +164,6 @@ public class Stock {
         }
     }
     
-    // public void calc() {
-    //     // int selectedRow = table.getSelectedRow();
-        
-    //     Scanner scanner = new Scanner(new File(FILE_NAME));
-    // // try {
-    //     while (scanner.hasNextLine()) {
-    //     int line = scanner.nextLine();
-    //     if (line.toLowerCase().contains(APP.System_User_Interface.Order_Table_GUI.resaddParts.toLowerCase()))
-    //      {
-    //         // return true; // Word found in a line
-    //     // }
-    //     // }
-
-    //     // if (selectedRow >= 0) {
-    //         // Stock del = new Stock.deleteItem();
-    //         String newName = APP.System_User_Interface.Order_Table_GUI.resaddParts;
-    //         String test = newName;
-    //         Item itemToDelete = itemList.get(selectedRow);
-    
-    //             // Remove the item from the list
-    //             itemList.remove(itemToDelete);
-    
-    //             // Remove the item from the table model
-    //             tableModel.removeRow(selectedRow);
-    //             writeStockToFile();
-                
-    
-    //         if (test != null){
-    //             String newQuantityString =  APP.System_User_Interface.Order_Table_GUI.resaddParts[0];
-    //             if( newQuantityString != null) {
-                
-    //             try {
-                    
-    //                 addItem(test,newQuantityString);
-    
-    //                 // // Update table model with new values
-    //                 tableModel.setValueAt(test, line, 0);
-    //                 tableModel.setValueAt(newQuantityString, line, 1);
-    
-    //                 // Update the file with changes
-    //                 writeStockToFile();
-    
-    //             } catch (NumberFormatException e) {
-    //                 JOptionPane.showMessageDialog(null, "Quantity Invalid");
-    //             }
-    //         }
-    //     }
-
-    // } 
-    //     else {
-    //         JOptionPane.showMessageDialog(null, "Please select an item to update");
-    //     }
-    // }
 
 
     public void deleteItem() {
