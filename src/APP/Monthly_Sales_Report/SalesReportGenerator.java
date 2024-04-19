@@ -38,8 +38,10 @@ public class SalesReportGenerator {
 		long lastTimestampUpdate = System.currentTimeMillis(); // Initialize timestamp
 
 		try (Scanner myreader = new Scanner(new FileReader(APP.OrderManagement.Order.FILE_NAME));
-             FileWriter mywriter = new FileWriter(REPORT_FILE_PREFIX + generateUniqueFilename() + ".doc")) {
+		
 
+             FileWriter mywriter = new FileWriter(REPORT_FILE_PREFIX + generateUniqueFilename() + ".doc")) {
+				// mywriter.setEncryption(null,null,mywriter,FileWriter.ENCRYPTION_AES | FileWriter.STANDARD_ENCRYPTION_128); // encryption level
 				String header = "                   ********TRUDY'S BOWTIQUE******* \n                     ********SALES REPORT******* \n";
 				mywriter.write(header);
 			  while (myreader.hasNextLine()) {

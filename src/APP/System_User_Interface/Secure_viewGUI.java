@@ -2,6 +2,7 @@ package APP.System_User_Interface;
 
 import javax.swing.*;
 
+import APP.NotificationsandEvents.StockAlert;
 import APP.OrderManagement.Order;
 import APP.StockManagement.Stock;
 
@@ -14,6 +15,8 @@ public class Secure_viewGUI extends JPanel {
     private JButton Stock;
     private JButton Orders;
     private JButton Report;
+    private JButton stockAlertButton; // Button for opening StockAlertGUI
+
 
 
     public Secure_viewGUI() {
@@ -21,6 +24,8 @@ public class Secure_viewGUI extends JPanel {
         Stock = new JButton("Stock");
         Orders = new JButton("Orders");
         Report = new JButton("Report");
+        stockAlertButton = new JButton("Critical Level"); // Create Stock Alert button
+
 
         // Use a BorderLayout to center the buttons
         setLayout(new BorderLayout());
@@ -30,6 +35,7 @@ public class Secure_viewGUI extends JPanel {
         buttonPanel.add(Stock);
         buttonPanel.add(Orders);
         buttonPanel.add(Report);
+        buttonPanel.add(stockAlertButton);
 
         // Add the panel to the center of the main panel
         add(buttonPanel, BorderLayout.CENTER);
@@ -38,6 +44,8 @@ public class Secure_viewGUI extends JPanel {
         Stock.addActionListener(new StockButtonListener());
         Orders.addActionListener(new OrderButtonListener());
         Report.addActionListener(new ReportButtonListener());
+        stockAlertButton.addActionListener(new StockAlertButtonListener());
+
     }
 
 
@@ -82,6 +90,16 @@ public class Secure_viewGUI extends JPanel {
         }
     }
 
+
+    private class StockAlertButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            StockAlert stockAlert = new StockAlert(); // Create an instance of StockAlert
+            StockAlertGUI stockAlertGUI = new StockAlertGUI(stockAlert); // Pass the StockAlert object to the StockAlertGUI constructor
+            stockAlertGUI.createAndShowGUI(); // Show StockAlertGUI
+        }
+    }
+
     private class ReportButtonListener implements ActionListener {
         private  final JOptionPane JJOptionPane = null;
     
@@ -104,5 +122,7 @@ public class Secure_viewGUI extends JPanel {
                 }
             }
         }
+
+        
    
 }

@@ -134,7 +134,7 @@ public class Order_GUI extends JFrame{
         this.setLocationRelativeTo(null);  
         this.setVisible(true);
         orderList = loadItems(file);
-        String[] columnNames = { "Order No.", "Customer's Name", "Status of Order", "DeadLine" };
+        String[] columnNames = { "Order No.", "Item Name", "Status of Order", "DeadLine" };
         model = new DefaultTableModel(columnNames, 0);
         table = new JTable(model);
         showTable(orderList);
@@ -145,7 +145,7 @@ public class Order_GUI extends JFrame{
         toppanel.add(detailspanel); 
         detailspanel.setMargin(new InsetsUIResource(20, 20, 20, 20));
         detailspanel.setFont(new Font("Arial", Font.PLAIN, 20));
-        detailspanel.setBackground(Color.WHITE);
+        detailspanel.setBackground(Color.PINK);
         detailspanel.setText("Click on an order to see its details displayed here.");
         detailspanel.setEditable(false);
 

@@ -60,6 +60,7 @@ class Order_Table_GUI extends JFrame {
     private JLabel add;
     public static JTextArea tadd;
     public static JButton Done;
+    public static String[] resaddParts;
   
     public JTextArea resadd;
  
@@ -209,21 +210,29 @@ class Order_Table_GUI extends JFrame {
 
                     String resaddContent = resadd.getText();
 
-                    // Reduce stock using Stock class
+                    // // Reduce stock using Stock class
                     APP.StockManagement.Stock stock = new Stock();
-                    // Assuming item name and reduction amount are separated by space
-                    String[] resaddParts = resaddContent.split(" ");
-                    if (resaddParts.length == 2) {
-                        stock.reduceStock(resaddParts[0], Integer.parseInt(resaddParts[1]));
-                    }
+                    // // Assuming item name and reduction amount are separated by space
+                    resaddParts = resaddContent.split(" ");
+                    // System.out.println(resaddParts[0]);
+                    // System.out.println(Integer.parseInt(resaddParts[1]));
+                    // if (resaddParts.length == 2) {
+                    // stock.reduceStock(resaddParts[0], Integer.parseInt(resaddParts[1]));
+                    // }
                     
 					w.flush();
 					w.close();
 					b.close();
 					f.close();
                     APP.OrderManagement.Order.getOrderList().add(o);
-                    // APP.System_User_Interface.Order_GUI.table.setVisible(false);
-                    dispose();
+                    APP.System_User_Interface.Order_GUI.table.setVisible(false);
+
+                    APP.System_User_Interface.Order_GUI.model.setRowCount(0);
+                    APP.OrderManagement.Order.orderList=APP.OrderManagement.Order.loadItems(APP.System_User_Interface.Order_GUI.file);
+                    APP.System_User_Interface.Order_GUI.showTable( APP.OrderManagement.Order.orderList);
+                
+                    // this.setVisible(false);
+                    // System.exit(ABORT);
                     // tname.setText("");
                     // t_mob.setText("");
                     // t_dline.setText("");
@@ -240,11 +249,14 @@ class Order_Table_GUI extends JFrame {
 				} catch (IOException e1) {
                     Order_GUI panel = new Order_GUI();
 					JOptionPane.showMessageDialog(panel,"Something went wrong");
-				}
-				APP.System_User_Interface.Order_GUI.model.setRowCount(0);
-                APP.OrderManagement.Order.orderList=APP.OrderManagement.Order.loadItems(APP.System_User_Interface.Order_GUI.file);
-                APP.System_User_Interface.Order_GUI.showTable( APP.OrderManagement.Order.orderList);
-                
+                } catch (NumberFormatException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                } catch (Exception e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+				
 		}
   
 

@@ -33,11 +33,9 @@ public class deploy extends JPanel {
     private JTable table;
     private Color panelColor;
     static int a,b,c;
-    static final String DB_URL = "jdbc:mysql://localhost:3306/";
-    static final String USER = "Trudy";
-    static final String PASSWORD = "AdminTest1";
-    
-
+    // static final String DB_URL = "jdbc:mysql://sql5.freesqldatabase.com:3306/sql5700240";
+    // static final String USER = "sql5700240";
+    // static final String PASSWORD = "1rFJ2HigUE";
     
     /** 
      * @param args
