@@ -55,7 +55,7 @@ public class OrdItem{
         }
         public void setStatus_2(String stat) {
             
-            this.status = status;
+            this.status[0] = stat;
         }
 
         public void setStatus(String stat) {
@@ -162,7 +162,7 @@ public void setPhonenum(String phonenum)
          * @return String
          */
         public String getStatus_2() {
-            return status_2;
+            return status[0];
         }
       
      
@@ -175,7 +175,7 @@ public void setPhonenum(String phonenum)
         StringBuilder sb = new StringBuilder();
         sb.append(ordnum).append(" ");
         sb.append(name.replace(" ", "_")).append(" ");
-        sb.append(status).append(" ");
+        sb.append(status[0]).append(" ");
         sb.append(deadline).append(" ");
         sb.append(phonenum).append(" ");
         sb.append(addr.replace(" ", "_")).append(" ");

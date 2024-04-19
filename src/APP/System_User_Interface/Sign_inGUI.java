@@ -45,8 +45,8 @@ public class Sign_inGUI extends JPanel {
     loginButton.setBounds(300, 430, 200, 68);
 
     // Color and event handling
-    closeButton.setBackground(Color.lightGray);
-    loginButton.setBackground(Color.lightGray);
+    closeButton.setBackground(Color.RED);
+    loginButton.setBackground(Color.GREEN);
     closeButton.addActionListener(new CloseButtonListener());
     loginButton.addActionListener(new LoginButtonListener());
 
