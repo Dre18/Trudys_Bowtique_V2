@@ -85,7 +85,7 @@ public class Order {
     }
 
     public static void removeRecord(String val){
-        String tempfile = "temp.dat";
+        String tempfile = "temp.csv";
         String currentline;
         File oldfile= new File(FILE_NAME);
         File newfile = new File(tempfile);
